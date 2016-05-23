@@ -1,13 +1,11 @@
 <?php
 return array (
   'DB_TYPE' => 'mysql',
-  'DB_HOST' => MYSQL_CONNECTION,
+  'DB_HOST' => '10.10.26.58',
   'DB_PORT' => '3306',
-//  'DB_NAME' => 'dongwthb_xiaohua',
-  'DB_NAME' => MYSQL_INSTANCE_NAME,
-//  'DB_USER' => 'dongwthb',
-  'DB_USER' => MYSQL_USERNAME,
-  'DB_PWD' =>  MYSQL_PASSWORD,
+  'DB_NAME' => 'R9EQD8K5zM7mlcCH',
+  'DB_USER' => 'uXjVdgKqtSYkA9JN',
+  'DB_PWD' =>  'pMw9XFOqK6DAWy8Su',
   'DB_PREFIX' => 'xh_',
 );
 ?>
