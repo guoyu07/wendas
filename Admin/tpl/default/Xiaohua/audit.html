@@ -1,0 +1,242 @@
+<include file="Public:header" />
+
+<link href="__ROOT__/Assets/js/jqueryui/development-bundle/themes/base/jquery.ui.all.css" type="text/css" rel="stylesheet">
+
+<link href="__ROOT__/Assets/js/jqueryui/development-bundle/themes/base/jquery.ui.datepicker.css" rel="stylesheet" type="text/css"/>
+
+<script src="__ROOT__/Assets/js/jqueryui/development-bundle/ui/jquery.ui.core.js"></script>
+
+<script src="__ROOT__/Assets/js/jqueryui/development-bundle/ui/jquery.ui.datepicker.js"></script>
+
+<div class="pad-lr-10">
+
+    <form name="searchform" action="" method="get" >
+
+    <table width="100%" cellspacing="0" class="search-form">
+
+        <tbody>
+
+            <tr>
+
+            <td>
+
+            <div class="explain-col">
+
+               标题：
+
+               <input type="text" size="30" name="title" value="{$title}"/>
+
+               分类：
+
+                <select name="type">
+                    <option value="all" <if condition="$type eq 'all'">selected</if>>-全部-</option>
+                    <option value="1" <if condition="$type eq '1'">selected</if>>段子</option>
+                    <option value="2" <if condition="$type eq '2'">selected</if>>趣图</option>
+                    <option value="3" <if condition="$type eq '3'">selected</if>>动图</option>
+                    <option value="4" <if condition="$type eq '4'">selected</if>>视屏</option>
+                </select>
+
+              是否推荐：
+
+                <select name="commend">
+                    <option value="all" <if condition="$commend eq 'all'">selected</if>>-全部-</option>
+                    <option value="1" <if condition="$commend eq '1'">selected</if>>是</option>
+                    <option value="0" <if condition="$commend eq '0'">selected</if>>否</option>
+                </select>
+
+
+                <input type="hidden" name="m" value="xiaohua" />
+
+                <input type="hidden" name="a" value="audit" />
+
+                <input type="submit" name="search" class="button" value="搜索" />
+
+            </div>
+
+            </td>
+
+            </tr>
+
+        </tbody>
+
+    </table>
+
+    </form>
+
+    <form id="myform" name="myform" action="{:u('xiaohua/delete')}" method="post" onsubmit="return check();">
+
+    <div class="table-list">
+
+    <table width="100%" cellspacing="0">
+
+        <thead>
+
+            <tr>
+
+                <th width="60">ID</th>
+
+                <th width="60"><input type="checkbox" value="" id="check_box" onclick="selectall('id[]');"></th>
+
+                <th width="200">发布人</th>
+
+                <th width="500">内容</th>
+
+                <th>类别</th>
+
+                <th>笑点</th>                
+
+                <th>状态</th>
+
+                <th>是否推荐</th>                
+
+                <th>发布时间</th>
+
+                <th>操作</th>
+
+            </tr>
+
+        </thead>
+
+    	<tbody>
+
+        <volist name="joke_list" id="val" >
+
+        <tr>
+
+            <td align="center">{$val.id}</td>
+
+            <td align="center"><input type="checkbox" value="{$val.id}" name="id[]"></td>            
+
+            <td align="center"><img src="{$val.user_info.avatar}" width="80"/><br/>{$val.user_info.username}</td>
+
+            <td align="left"><b>{$val.title}</b><br/><br/>{$val.content}</td>
+
+            <td align="center">
+
+                <if condition="$val.type eq 1">文字</if>
+
+                <if condition="$val.type eq 2">图片</if>
+
+                <if condition="$val.type eq 3">动态图</if>
+
+                <if condition="$val.type eq 4">视频</if>
+
+            </td>
+
+            <td align="center">
+               <volist id="sval" name="val['tags']">
+                {$sval.name} &nbsp;
+               </volist>
+
+            </td>
+
+            <td align="center">
+
+               <font style="color:#00ff00">通过</font>
+
+            </td>
+
+            <td align="center" id="commend_{$val.id}">
+            <if condition="$val.commend eq 1">
+               <font style="color:#ff0000">已推荐</font><br/>
+               <a href="javascript:commend({$val.id},0)" class="blue">取消推荐</a>
+            <else/>
+                <a href="javascript:commend({$val.id},1)" class="blue">推荐</a><br/>
+                <font style="color:#cccccc">未推荐</font>
+            </if>
+
+            </td>
+
+            <td align="center">{$val.created_time|date='Y-m-d H:i:s',###}</td>
+
+            <td align="center">
+
+                <a href="javascript:edit({$val.id},'{$val.username}')" class="blue">编辑</a>
+
+                <a href="javascript:show({$val.id},'{$val.username}')" class="blue">详情</a>
+
+            </td>
+
+        </tr>
+
+        </volist>
+
+    	</tbody>
+
+    </table>
+
+
+
+    <div class="btn">
+
+            <label for="check_box" style="float:left;">{$Think.lang.select_all}/{$Think.lang.cancel}</label>
+
+            <input type="submit" class="button" name="dosubmit" value="{$Think.lang.delete}" onclick="return confirm('{$Think.lang.sure_delete}')" style="float:left;margin-left:10px;"/>
+
+            <div id="pages">{$page}</div>
+
+    </div>
+
+    </div>
+
+    </form>
+
+</div>
+
+<script language="javascript">
+
+$(function(){
+
+    $("#time_start").datepicker({
+
+      changeMonth: true,
+
+      changeYear: true
+
+    });
+
+    $("#time_end").datepicker({
+
+      changeMonth: true,
+
+      changeYear: true
+
+    });
+
+});
+
+
+
+function show(id, name) {
+
+    var lang_show = "详情";
+
+    window.top.art.dialog({id:'show'}).close();
+
+    window.top.art.dialog({title:lang_show+'--'+name,id:'show',iframe:'?m=xiaohua&a=show&id='+id,width:'800',height:'600'}, function(){var d = window.top.art.dialog({id:'show'}).data.iframe;d.document.getElementById('dosubmit').click();return false;}, function(){window.top.art.dialog({id:'show'}).close()});
+
+}
+
+function edit(id, name) {
+
+    var lang_show = "详情";
+
+    window.top.art.dialog({id:'edit'}).close();
+
+    window.top.art.dialog({title:lang_show+'--'+name,id:'edit',iframe:'?m=xiaohua&a=edit&id='+id,width:'800',height:'600'}, function(){var d = window.top.art.dialog({id:'edit'}).data.iframe;d.document.getElementById('dosubmit').click();return false;}, function(){window.top.art.dialog({id:'edit'}).close()});
+
+}
+
+function commend(id,commend) {
+    $.get("{:u('xiaohua/commend')}", { id: id,commend:commend}, function(jsondata){
+        if(commend == 0) {
+            $('#commend_'+id).html('<a href="javascript:commend('+id+',1)" class="blue">推荐</a><br/><font style="color:#cccccc">未推荐</font>');
+        }else {
+            $('#commend_'+id).html('<font style="color:#ff0000">已推荐</font><br/><a href="javascript:commend('+id+',0)" class="blue">取消推荐</a>');
+        }
+
+    },'json'); 
+}
+</script>
+
+<include file="public:footer" />

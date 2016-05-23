@@ -1,0 +1,50 @@
+<include file="Public:header" />
+<div class="pad_10">
+<form action="{:u('level/edit')}" method="post" name="myform" id="myform">
+<table width="100%" cellpadding="2" cellspacing="1" class="table_form">
+	<tr> 
+		<th width="100">等级：</th>
+		<td><input type="text" name="level" id="level" class="input-text" value="{$level_info.level}" ></td>
+    </tr>
+    <tr> 
+		<th width="100">时间：</th>
+		<td><input type="text" name="minute" id="level" class="input-text" value="{$level_info.minute}" > /分钟</td>
+    </tr>
+    <tr> 
+		<th width="100">投稿数</th>
+		<td><input type="text" name="send_num" id="send_num" class="input-text" value="{$level_info.send_num}" ></td>
+    </tr>
+    <tr> 
+		<th width="100">奖励数</th>
+		<td><input type="text" name="award" id="award" class="input-text" value="{$level_info.award}" > /囧币</td>
+    </tr>
+</table>
+<input type="submit" name="dosubmit" id="dosubmit" class="dialog" value=" ">
+</form>
+<script type="text/javascript">
+
+$(function(){
+	$.formValidator.initConfig({formid:"myform",
+		autotip:true,
+		onerror:function(msg,obj){
+			window.top.art.dialog({content:msg,lock:true,width:'200',height:'50'}, 
+								  function(){
+									  this.close();
+									  $(obj).focus();
+									})
+		}
+	});
+		
+	$("#level").formValidator({onshow:"",onfocus:"等级不能为空"})
+		.inputValidator({min:1,onerror:"等级不能为空"});
+	$("#minute").formValidator({onshow:"",onfocus:"时间不能为空"})
+		.inputValidator({min:1,onerror:"时间不能为空"});
+	$("#send_num").formValidator({onshow:"",onfocus:"投稿数不能为空"})
+		.inputValidator({min:1,onerror:"投稿数不能为空"});
+	$("#award").formValidator({onshow:"",onfocus:"奖励数不能为空"})
+		.inputValidator({min:1,onerror:"奖励数不能为空"});
+
+})
+</script>
+</div>
+</body>

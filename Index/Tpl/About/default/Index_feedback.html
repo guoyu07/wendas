@@ -1,0 +1,125 @@
+<include file="./Index/Tpl/Public/default/Index_header.html" />
+
+<!-- 主体内容-开始 -->
+
+<div class="main clearfix about-main">
+
+
+
+	<div class="left">
+
+	<dl>
+
+	<dt>关于东吴</dt>
+
+	<dd><a href="/about/jianjie.html">东吴简介</a></dd>
+
+	<dd><a href="/about/gonggao.html">东吴公告</a></dd>
+
+	<dd><a href="/about/shengming.html">免责声明</a></dd>
+
+	<dd><a href="/about/feedback.html" class="hover">反馈意见</a></dd>
+
+	</dl>
+
+	<dl class="guize">
+
+	<dt>互动规则</dt>
+
+	<dd><a href="/about/tougao.html">投稿规则</a></dd>
+
+	<dd><a href="/about/shengao.html">审稿规则</a></dd>
+
+	<dd><a href="/about/shengji.html">升级规则</a></dd>
+
+	<dd><a href="/about/jiongbi.html">囧币规则</a></dd>
+
+	</dl>
+
+	</div>
+
+
+
+	<div class="right">
+
+		<form id="fankui">
+
+			<dl class="fankui">
+
+				<dt>反馈意见</dt>
+
+				<dd>
+
+					<textarea placeholder="请输入您的意见，建议..." name="content" style="color: rgb(214, 213, 213);width:90%;"></textarea>
+
+					</dd>
+
+					<dd>
+
+					<div class="vcodeli clearfix">
+						<input type="text" name="code" class="vcode" placeholder="验证码" maxlength="4">
+						<img src="/public/verify" id="vcode" alt="验证码" title="换一换">
+						<span class="error"></span>
+					</div>
+					<br>
+					<p>请在此留下您的联系方式，我们期待与您取得联系</p>
+					<input type="text" value="" placeholder="您的QQ..." class="text-input" name="contact" style="color: rgb(214, 213, 213);">
+					<input type="button" value="提交反馈" class="submit-input">
+				</dd>
+
+			</dl>
+
+		</form>
+
+	</div>
+
+
+
+</div>
+
+<!-- 主体内容-结束 -->
+
+
+
+<include file="./Index/Tpl/Public/default/Index_footer.html" />
+<script type="text/javascript">
+	seajs.use(['app','user'], function(App,user){
+		user.verify();
+		var form = $('#fankui'),
+			content = form.find('textarea'),
+			contact = form.find('.text-input'),
+			code = form.find('.vcode')
+			submit = form.find('.submit-input');
+		submit.click(function(){
+			var data = form.serializeObject();
+			if(!data.content){
+				App.alert('反馈意见不能为空！');
+				return;
+			}else{
+				if(data.content.length >= 140 ){
+					App.alert('反馈意见最多140个字符！');
+					return;
+				}
+			};
+			if(!/^[\d]{5,11}$/.test(data.contact)){
+				App.alert('联系方式手机号或者QQ号！');
+				return;
+			};
+			App.request({
+				url : '/about/feedback',
+				data : data,
+				success : function(result){
+					var re = result;
+					if(re.err){
+						App.alert(re.msg);
+						content.val('');
+						contact.val('');
+						code.val('');
+					}else{
+						App.alert(re.msg);
+					};
+				}
+			});
+		});
+	});
+</script>

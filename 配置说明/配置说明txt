@@ -1,0 +1,32 @@
+虾囧笑话程序说明文档
+
+一、执行SQL
+新建一个数据库如：xiaohua ，然后导入根目录xiaohua.sql 文件
+
+二、数据库信息修改
+1、WEB端  Index/Conf/db.php 
+2、手机端 Wap/Conf/db.php
+3、后端 Admin/Conf/db.php
+
+三、域名文件配置修改域名为自己的
+1、/Index/Conf/Constants.php  SITE_DOMAIN
+2、/Wap/Conf/Constants.php  SITE_DOMAIN
+3、/Index/Tpl/Public/default/Index_header.html  手机端跳转 改成自己的
+
+四、URL重写
+1、Apache  .htaccess
+2、IIS  http.ini
+3、nginx参考目录下《nginx配置rewrite.txt》
+
+五、后台管理员账号
+后台地址：http://www.域名.com/admin.php
+账号：admin  
+密码：123456
+
+六、手机端域名判断，根目录index.php 第一行换成自己的
+
+七、QQ回调地址：http://www.域名.com/account/qqcallback
+
+八、清空数据库
+进数据库，再进表，打开SQL 输入  Truncate table 表名   然后运行，即可将ID归0，数据就会全清空，如清空所有笑话内容：Truncate table `xh_user_joke`
+

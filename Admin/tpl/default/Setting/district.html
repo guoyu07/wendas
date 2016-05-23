@@ -1,0 +1,41 @@
+<include file="Public:header" />
+<form id="myform" name="myform" action="{:u('setting/edit')}" method="post">
+<input type="hidden" name="data" value="district" />
+  <div class="pad-10">
+      	<table width="100%" cellpadding="2" cellspacing="1" class="table_form">
+            <tr>
+              <th width="150">商家入住保证金:</th>
+              <td style="line-height:30px">
+                <input type="text" name="site[supply_in_district]" value="{$set.supply_in_district}" class="input-text"/>
+              </td>
+            </tr>
+           <tr>
+              <th width="150">商家入住服务费:</th>
+              <td style="line-height:30px">
+                <input type="text" name="site[supply_in_service]" value="{$set.supply_in_service}" class="input-text"/>
+              </td>
+            </tr>
+            <tr>
+              <th width="150">成为正式认证员保证金:</th>
+              <td style="line-height:30px">
+                <input type="text" name="site[auth_formal_district]" value="{$set.auth_formal_district}" class="input-text"/>
+              </td>
+            </tr>
+            <tr>
+              <th>说明:</th>
+              <td>
+                商家入住保证金：商家成为供应商缴纳的钱<br/>
+                商家入住服务费：商家日后有官方提供的服务维护费用<br/>
+                正式认证员保证金：微店主成为正式认证员可以认证其他商家入住的费用<br/>
+              </td>
+            </tr>
+         </table>
+      <div class="bk15"></div>
+
+      <div class="btn"><input type="submit" value="{$Think.lang.submit}" onclick="return submitFrom();" name="dosubmit" class="button" id="dosubmit"></div>
+
+  </div>
+
+</form>
+
+</body></html>

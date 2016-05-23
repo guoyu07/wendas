@@ -1,0 +1,45 @@
+<include file="Public:header" />
+<form id="myform" name="myform" action="{:u('setting/edit')}" method="post">
+<input type="hidden" name="data" value="alipay" />
+  <div class="pad-10">
+      	<table width="100%" cellpadding="2" cellspacing="1" class="table_form">
+            <tr>
+              <th width="150">收款账号:</th>
+              <td style="line-height:30px">
+                <input type="text" name="site[alipay_paccount]" value="{$set.alipay_paccount}" size="50" class="input-text"/>
+              </td>
+            </tr>
+           <tr>
+              <th width="150">合作身份ID:</th>
+              <td style="line-height:30px">
+                <input type="text" name="site[alipay_partner]" value="{$set.alipay_partner}"  size="50" class="input-text"/>
+              </td>
+            </tr>
+            <tr>
+              <th width="150">安全验证码:</th>
+              <td style="line-height:30px">
+                <input type="text" name="site[alipay_key]" value="{$set.alipay_key}"  size="50" class="input-text"/>
+              </td>
+            </tr>
+            <tr>
+              <th width="150">异步回调地址:</th>
+              <td style="line-height:30px">
+                <input type="text" name="site[alipay_n_url]" value="{$set.alipay_n_url}"  size="50" class="input-text"/>
+              </td>
+            </tr>
+            <tr>
+              <th width="150">返回页面地址:</th>
+              <td style="line-height:30px">
+                <input type="text" name="site[alipay_r_url]" value="{$set.alipay_r_url}"  size="50" class="input-text"/>
+              </td>
+            </tr>
+         </table>
+      <div class="bk15"></div>
+
+      <div class="btn"><input type="submit" value="{$Think.lang.submit}" onclick="return submitFrom();" name="dosubmit" class="button" id="dosubmit"></div>
+
+  </div>
+
+</form>
+
+</body></html>

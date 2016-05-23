@@ -1,0 +1,113 @@
+<include file="Public:header" />
+<link href="__ROOT__/Assets/js/jqueryui/development-bundle/themes/base/jquery.ui.all.css" type="text/css" rel="stylesheet">
+<link href="__ROOT__/Assets/js/jqueryui/development-bundle/themes/base/jquery.ui.datepicker.css" rel="stylesheet" type="text/css"/>
+<script src="__ROOT__/Assets/js/jqueryui/development-bundle/ui/jquery.ui.core.js"></script>
+<script src="__ROOT__/Assets/js/jqueryui/development-bundle/ui/jquery.ui.datepicker.js"></script>
+<div class="pad-lr-10">
+    <form name="searchform" action="" method="get" >
+    <table width="100%" cellspacing="0" class="search-form">
+        <tbody>
+            <tr>
+            <td>
+            <div class="explain-col">
+                关键字 :
+                <input name="keyword" type="text" class="input-text" size="25" value="{$keyword}" placeholder="昵称/邮箱/手机号"/>
+                &nbsp;&nbsp;状态：
+                <select name="status">
+                    <option value="">--请选择--</option>
+                    <option value="1">未激活</option>
+                    <option value="2">正常</option>
+                    <option value="0">禁用</option>
+              </select>
+                &nbsp;
+                注册时间：         
+                <!-- <wego:calendar name="time_start">{$time_start}</wego:calendar> -->
+                <input type="text" size="12" name="time_start" id="time_start" value="<if condition='$time_start neq ""'>{$time_start}</if>"/>
+                -      
+                <!-- <wego:calendar name="time_end" more="true">{$time_end}</wego:calendar> -->
+                <input type="text" size="12" name="time_end" id="time_end" value="<if condition='$time_end neq ""'>{$time_end}</if>"/>
+                <input type="hidden" name="m" value="user" />
+                <input type="hidden" name="a" value="index" />
+                <input type="submit" name="search" class="button" value="搜索" />
+            </div>
+            </td>
+            </tr>
+        </tbody>
+    </table>
+    </form>
+
+
+    <form id="myform" name="myform" action="{:u('user/delete')}" method="post" onsubmit="return check();">
+    <div class="table-list">
+    <table width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th><input type="checkbox" value="" id="check_box" onclick="selectall('id[]');"></th>
+                <th>昵称</th>
+                <th>等级 / 囧币</th>
+                <th>邮箱</th>
+                <th>在线时间</th>
+                <th>注册时间</th>
+                <th>注册IP</th>
+                <th>最后登陆时间</th>
+                <th>最后登陆IP</th>
+                <th>状态</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+    	<tbody>
+        <volist name="user_list" id="val" >
+        <tr>
+        	<td align="center">{$val.id}</td>
+            <td align="center"><input type="checkbox" value="{$val.id}" name="id[]"></td>            
+            <td align="center"><img src="{$val.avatar}" width="80"/><br/>{$val.username}</td>
+            <td align="center">{$val.level} / {$val.money}<br/><br/><a class="blue" href="javascript:change({$val.id},'{$val.username}')">调节</a></td>
+            <td align="center">{$val.email}</td>
+            <td align="center">{$val.online_time} 分钟</td>
+            <td align="center">{$val.created_time|date='Y-m-d H:i:s',###}</td>
+            <td align="center">{$val.register_ip}</td>
+            <td align="center">{$val.last_login_time|date='Y-m-d H:i:s',###}</td>
+            <td align="center">{$val.last_login_ip}</td>
+            <td align="center"><if condition="$val.status eq 1">未激活</if><if condition="$val.status eq 2">正常</if><if condition="$val.status eq 0">禁用</if></td>
+            <td align="center">
+                <a href="javascript:show({$val.id},'{$val.username}')" class="blue">详情</a>
+            </td>
+        </tr>
+        </volist>
+    	</tbody>
+    </table>
+
+    <div class="btn">
+            <label for="check_box" style="float:left;">{$Think.lang.select_all}/{$Think.lang.cancel}</label>
+            <input type="submit" class="button" name="dosubmit" value="{$Think.lang.delete}" onclick="return confirm('{$Think.lang.sure_delete}')" style="float:left;margin-left:10px;"/>
+            <div id="pages">{$page}</div>
+    </div>
+    </div>
+    </form>
+</div>
+<script language="javascript">
+$(function(){
+    $("#time_start").datepicker({
+      changeMonth: true,
+      changeYear: true
+    });
+    $("#time_end").datepicker({
+      changeMonth: true,
+      changeYear: true
+    });
+});
+
+function show(id, name) {
+	var lang_show = "详情";
+	window.top.art.dialog({id:'show'}).close();
+	window.top.art.dialog({title:lang_show+'--'+name,id:'show',iframe:'?m=user&a=show&id='+id,width:'500',height:'500'}, function(){var d = window.top.art.dialog({id:'show'}).data.iframe;d.document.getElementById('dosubmit').click();return false;}, function(){window.top.art.dialog({id:'show'}).close()});
+}
+
+function change(id, name) {
+    var lang_show = "调节";
+    window.top.art.dialog({id:'change'}).close();
+    window.top.art.dialog({title:lang_show+'--'+name,id:'change',iframe:'?m=user&a=change&id='+id,width:'500',height:'400'}, function(){var d = window.top.art.dialog({id:'change'}).data.iframe;d.document.getElementById('dosubmit').click();return false;}, function(){window.top.art.dialog({id:'change'}).close()});
+}
+</script>
+<include file="public:footer" />

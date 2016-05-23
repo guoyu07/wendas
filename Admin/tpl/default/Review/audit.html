@@ -1,0 +1,79 @@
+<include file="Public:header" />
+<link href="__ROOT__/Assets/js/jqueryui/development-bundle/themes/base/jquery.ui.all.css" type="text/css" rel="stylesheet">
+<link href="__ROOT__/Assets/js/jqueryui/development-bundle/themes/base/jquery.ui.datepicker.css" rel="stylesheet" type="text/css"/>
+<script src="__ROOT__/Assets/js/jqueryui/development-bundle/ui/jquery.ui.core.js"></script>
+<script src="__ROOT__/Assets/js/jqueryui/development-bundle/ui/jquery.ui.datepicker.js"></script>
+<div class="pad-lr-10">
+    <form name="searchform" action="" method="get" >
+    <table width="100%" cellspacing="0" class="search-form">
+        <tbody>
+            <tr>
+            <td>
+            <div class="explain-col">
+               
+                发布时间：         
+                <!-- <wego:calendar name="time_start">{$time_start}</wego:calendar> -->
+                <input type="text" size="12" name="time_start" id="time_start" value="<if condition='$time_start neq ""'>{$time_start}</if>"/>
+                -      
+                <!-- <wego:calendar name="time_end" more="true">{$time_end}</wego:calendar> -->
+                <input type="text" size="12" name="time_end" id="time_end" value="<if condition='$time_end neq ""'>{$time_end}</if>"/>
+                <input type="hidden" name="m" value="review" />
+                <input type="hidden" name="a" value="unaudit" />
+                <input type="submit" name="search" class="button" value="搜索" />
+            </div>
+            </td>
+            </tr>
+        </tbody>
+    </table>
+    </form>
+    <form id="myform" name="myform" action="{:u('review/delete')}" method="post" onsubmit="return check();">
+    <div class="table-list">
+    <table width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th width="60">ID</th>
+                <th width="60"><input type="checkbox" value="" id="check_box" onclick="selectall('id[]');"></th>
+                <th width="200">发布人</th>
+                <th width="500">内容</th>
+                <th>时间</th>
+                <th>状态</th>
+            </tr>
+        </thead>
+        <tbody>
+        <volist name="review_list" id="val" >
+        <tr>
+            <td align="center">{$val.id}</td>
+            <td align="center"><input type="checkbox" value="{$val.id}" name="id[]"></td>            
+            <td align="center"><img src="{$val.user_info.avatar}" width="80"/><br/>{$val.user_info.username}</td>
+            <td align="left">{$val.content}</td>
+            <td align="center">{$val.created_time|date="Y-m-d",###}</td>
+            <td align="center">
+                通过
+            </td>
+        </tr>
+        </volist>
+        </tbody>
+    </table>
+
+    <div class="btn">
+            <label for="check_box" style="float:left;">{$Think.lang.select_all}/{$Think.lang.cancel}</label>
+            <input type="submit" class="button" name="dosubmit" value="{$Think.lang.delete}" onclick="return confirm('{$Think.lang.sure_delete}')" style="float:left;margin-left:10px;"/>
+            <div id="pages">{$page}</div>
+    </div>
+    </div>
+    </form>
+</div>
+<script language="javascript">
+$(function(){
+    $("#time_start").datepicker({
+      changeMonth: true,
+      changeYear: true
+    });
+    $("#time_end").datepicker({
+      changeMonth: true,
+      changeYear: true
+    });
+});
+
+</script>
+<include file="public:footer" />

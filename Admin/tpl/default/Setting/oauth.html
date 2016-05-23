@@ -1,0 +1,43 @@
+<include file="Public:header" />
+<form id="myform" name="myform" action="{:u('setting/edit')}" method="post">
+<input type="hidden" name="data" value="oauth" />
+  <div class="pad-10">
+      	<table width="100%" cellpadding="2" cellspacing="1" class="table_form">
+            <tr>
+              <th width="100">PC微博登陆:</th>
+              <td>
+                App key:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="site[wb_app_key]" value="{$set.wb_app_key}" class="input-text"/><br/><br/>
+                App Secret:&nbsp;&nbsp;<input type="text" name="site[wb_app_secret]" value="{$set.wb_app_secret}" size="50" class="input-text"/><br/>
+              </td>
+            </tr>
+            <tr>
+              <th>PC腾讯QQ:</th>
+              <td>
+                App key:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="site[qq_app_key]" value="{$set.qq_app_key}" class="input-text"/><br/><br/>
+                App Secret:&nbsp;&nbsp;<input type="text" name="site[qq_app_secret]" value="{$set.qq_app_secret}" size="50" class="input-text"/><br/>
+              </td>
+            </tr>
+            <tr>
+              <th width="100">移动微博登陆:</th>
+              <td>
+                App key:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="site[mwb_app_key]" value="{$set.mwb_app_key}" class="input-text"/><br/><br/>
+                App Secret:&nbsp;&nbsp;<input type="text" name="site[mwb_app_secret]" value="{$set.mwb_app_secret}" size="50" class="input-text"/><br/>
+              </td>
+            </tr>
+            <tr>
+              <th>移动腾讯QQ:</th>
+              <td>
+                App key:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="site[mqq_app_key]" value="{$set.mqq_app_key}" class="input-text"/><br/><br/>
+                App Secret:&nbsp;&nbsp;<input type="text" name="site[mqq_app_secret]" value="{$set.mqq_app_secret}" size="50" class="input-text"/><br/>
+              </td>
+            </tr>
+         </table>
+      <div class="bk15"></div>
+
+      <div class="btn"><input type="submit" value="{$Think.lang.submit}" onclick="return submitFrom();" name="dosubmit" class="button" id="dosubmit"></div>
+
+  </div>
+
+</form>
+
+</body></html>

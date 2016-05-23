@@ -1,0 +1,2 @@
+Line 4: Unrecognized string: RewriteCond %{REQUEST_FILENAME} !-f
+Line 5: Unrecognized string: RewriteCond %{REQUEST_FILENAME} !-d

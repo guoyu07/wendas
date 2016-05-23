@@ -1,0 +1,77 @@
+<include file="Public:header" />
+<div class="pad_10">
+<table width="100%" cellpadding="2" cellspacing="1" class="table_form">
+	<tr> 
+		<th width="60">发布人:</th>
+		<td><img src="{$user_joke['user_info']['avatar']}" width="80"/> <br/>{$user_joke['user_info']['username']}</td>
+    </tr>
+    <tr> 
+		<th>内容:</th>
+		<td><b>{$user_joke.title}</b> <br/><br/>{$user_joke.content}</td>
+    </tr>
+     <tr> 
+		<th>类别:</th>
+		<td>
+			<if condition="$user_joke.type eq 1">文字</if>
+            <if condition="$user_joke.type eq 2">图片</if>
+            <if condition="$user_joke.type eq 3">动太图</if>
+		</td>
+    </tr>
+    <tr> 
+		<th>是否包养:</th>
+		<td>
+			<if condition="$user_joke.is_package eq 1">是</if>
+            <if condition="$user_joke.is_package eq 0">否</if>
+		</td>
+    </tr>
+    <tr> 
+		<th>包养费用:</th>
+		<td>
+			{$user_joke.package_fee}
+		</td>
+    </tr>
+    <tr> 
+		<th>包养人:</th>
+		<td><img src="{$user_joke['package_user_info']['avatar']}" width="80"/> <br/>{$user_joke['package_user_info']['username']}</td>
+    </tr>
+     <tr> 
+		<th>评审数:</th>
+		<td>
+			{$user_joke.audit_num}
+		</td>
+    </tr>
+     <tr> 
+		<th>顶:</th>
+		<td>
+			{$user_joke.good_num}
+		</td>
+    </tr>
+    <tr> 
+		<th>踩:</th>
+		<td>
+			{$user_joke.bad_num}
+		</td>
+    </tr>
+    <tr> 
+		<th>评论数:</th>
+		<td>
+			{$user_joke.review_num}
+		</td>
+    </tr>
+     <tr> 
+		<th>神回复:</th>
+		<td>
+			<if condition="$user_joke.god_reply eq 1">是</if>
+            <if condition="$user_joke.god_reply eq 0">否</if>
+		</td>
+    </tr>
+    <tr> 
+		<th>发布时间:</th>
+		<td>
+			{$user_joke.created_time|date='Y-m-d H:i:s',###}
+		</td>
+    </tr>
+</table>
+
+</div>
+</body>

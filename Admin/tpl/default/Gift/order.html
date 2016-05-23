@@ -1,0 +1,115 @@
+<include file="Public:header" />
+<link href="__ROOT__/Assets/js/jqueryui/development-bundle/themes/base/jquery.ui.all.css" type="text/css" rel="stylesheet">
+<link href="__ROOT__/Assets/js/jqueryui/development-bundle/themes/base/jquery.ui.datepicker.css" rel="stylesheet" type="text/css"/>
+<script src="__ROOT__/Assets/js/jqueryui/development-bundle/ui/jquery.ui.core.js"></script>
+<script src="__ROOT__/Assets/js/jqueryui/development-bundle/ui/jquery.ui.datepicker.js"></script>
+<div class="pad-lr-10">
+    <form name="searchform" action="" method="get" >
+    <table width="100%" cellspacing="0" class="search-form">
+        <tbody>
+            <tr>
+            <td>
+            <div class="explain-col">
+                关键字 :
+                <input name="keyword" type="text" class="input-text" size="25" value="{$keyword}" placeholder="订单号/姓名/手机号"/>
+                &nbsp;&nbsp;状态：
+                <select name="status">
+                    <option value="all">--全部--</option>
+                    <option value="0">未发货</option>
+                    <option value="1">已发货</option>
+              </select>
+                &nbsp;
+                下单时间：         
+                <!-- <wego:calendar name="time_start">{$time_start}</wego:calendar> -->
+                <input type="text" size="12" name="time_start" id="time_start" value="<if condition='$time_start neq ""'>{$time_start}</if>"/>
+                -      
+                <!-- <wego:calendar name="time_end" more="true">{$time_end}</wego:calendar> -->
+                <input type="text" size="12" name="time_end" id="time_end" value="<if condition='$time_end neq ""'>{$time_end}</if>"/>
+                <input type="hidden" name="m" value="gift" />
+                <input type="hidden" name="a" value="order" />
+                <input type="submit" name="search" class="button" value="搜索" />
+            </div>
+            </td>
+            </tr>
+        </tbody>
+    </table>
+    </form>
+
+
+    <form id="myform" name="myform" action="{:u('gift/deleteorder')}" method="post" onsubmit="return check();">
+    <div class="table-list">
+    <table width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th><input type="checkbox" value="" id="check_box" onclick="selectall('id[]');"></th>
+                <th>订单编号</th>
+                <th>昵称</th>
+                <th>礼品信息</th>
+                <th>囧币</th>
+                <th>收货人</th>
+                <th>手机号</th>
+                <th>地址</th>
+                <th>状态</th>
+                <th>下单时间</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+    	<tbody>
+        <volist name="order_list" id="val" >
+        <tr>
+        	<td align="center">{$val.id}</td>
+            <td align="center"><input type="checkbox" value="{$val.id}" name="id[]"></td>   
+            <td align="center">{$val.order_id}</td>         
+            <td align="center"><img src="{$val['user_info']['avatar']}" width="80"/><br/>{$val['user_info']['username']}</td>
+            <td align="center"><img src="{$val['gift_info']['image']}" width="80"/><br/>{$val['gift_info']['title']} X {$val.num}</td>
+            <td align="center">{$val.amount}</td>
+            <td align="center">{$val.username}</td>
+            <td align="center">{$val.phone}</td>
+            <td align="center">{$val.province} {$val.city} {$val.area} {$val.address} </td>
+            <td align="center">
+                <if condition="$val.status eq 1">已发货</if>
+                <if condition="$val.status eq 0">未处理</if>
+            </td>
+            <td align="center">{$val.created_time|date='Y-m-d H:i:s',###}</td>
+            <td align="center">
+                <if condition="$val['status'] eq  0">
+                    <a href="javascript:send({$val.id})" class="blue">发货</a>
+                </if>
+            </td>
+        </tr>
+        </volist>
+    	</tbody>
+    </table>
+
+    <div class="btn">
+            <label for="check_box" style="float:left;">{$Think.lang.select_all}/{$Think.lang.cancel}</label>
+            <input type="submit" class="button" name="dosubmit" value="{$Think.lang.delete}" onclick="return confirm('{$Think.lang.sure_delete}')" style="float:left;margin-left:10px;"/>
+            <div id="pages">{$page}</div>
+    </div>
+    </div>
+    </form>
+</div>
+<script language="javascript">
+$(function(){
+    $("#time_start").datepicker({
+      changeMonth: true,
+      changeYear: true
+    });
+    $("#time_end").datepicker({
+      changeMonth: true,
+      changeYear: true
+    });
+});
+
+function send(id) {
+    $.get("{:u('gift/processorder')}", { id: id}, function(jsondata){
+        if(jsondata.err){
+            alert(jsondata.msg);
+            location.reload();
+            return;
+        } 
+    },'json'); 
+}
+</script>
+<include file="public:footer" />

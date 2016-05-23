@@ -1,0 +1,49 @@
+<include file="./Index/Tpl/Public/default/Index_header.html" />
+
+<!-- 主体内容-开始 -->
+<div class="main clearfix member">
+
+	<include file="Index:banner" />
+
+	<div class="left">
+		<ul class="user-nav"> 
+			<li><a href="/user">我的信息</a></li> 
+			<li><a href="/user/joke">我的投稿</a></li> 
+			<li><a href="/user/review">@评论</a></li> 
+			<li><a href="/user/gift" class="hover">我的礼品</a></li> 
+			<li><a href="/user/info">个人资料</a></li> 
+		</ul>
+
+		<!--@我的礼品-开始-->
+		<ul class="content myinfo">
+			<if condition="$gift eq NULL">
+				<p style="font-size:20px;text-align:center;margin-top:16px;padding-bottom:20px;">小伙伴新来的，啥也木有。</p>
+			</if>
+			<volist name="gift" id="list">
+				<li> 
+					<div class="content-details">
+						<p> 
+							{$list['created_time'] | date="Y-m-d",###}  我兑换了 
+							<a href="/shop/detail_{$list['gift_info']['id']}" target="_blank">{$list['gift_info']['title']}</a>
+							<if condition="$gift['status'] eq 0">
+								<span>正在兑换</span>
+							<else/>
+								<span>已兑换</span>
+							</if>
+						</p>
+					</div>
+				</li> 
+			</volist>
+		</ul>
+		<!--@我的礼品-结束-->
+		<div class="comment">
+			<div class="page">{$page}</div>
+		</div>
+	</div>
+
+	<include file="Index:right" />
+
+</div>
+<!-- 主体内容-结束 -->
+
+<include file="./Index/Tpl/Public/default/Index_footer1.html" />

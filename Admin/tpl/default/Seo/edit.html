@@ -1,0 +1,32 @@
+<include file="Public:header" />
+<div class="pad_10">
+<form action="{:u('seo/edit')}" method="post" name="myform" id="myform">
+<table width="100%" cellpadding="2" cellspacing="1" class="table_form">
+	<tr> 
+		<th width="100">模块名称：</th>
+		<td><input type="text" name="name" id="name" class="input-text" value="{$seo_info.name}" ></td>
+    </tr>
+  	<tr> 
+		<th width="100">别名：</th>
+		<td><input type="text" name="alias" id="alias" class="input-text" value="{$seo_info.alias}" ></td>
+    </tr>
+    <tr> 
+		<th width="100">Title：</th>
+		<td><input type="text" name="title" id="title" class="input-text" value="{$seo_info.title}" ></td>
+    </tr>
+    <tr> 
+		<th width="100">Keywords：</th>
+		<td><input type="text" name="keywords" id="keywords" class="input-text" value="{$seo_info.keywords}" ></td>
+    </tr>
+     <tr> 
+		<th width="100">描述：</th>
+		<td><textarea name="description" id="description" rows="4" cols="40">{$seo_info.description}</textarea></td>
+    </tr>
+   
+</table>
+<input type="hidden" name="id" value="{$seo_info.id}" />
+<input type="submit" name="dosubmit" id="dosubmit" class="dialog" value=" ">
+</form>
+
+</div>
+</body>

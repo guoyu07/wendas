@@ -1,0 +1,54 @@
+<include file="Public:header" />
+<div class="pad_10">
+    <form action="{:u('setting/edit_banner')}" method="post" name="myform" id="myform" enctype="multipart/form-data" >
+        <input type="hidden" name="id" value="{$banner_info.id}" />
+        <table width="100%" cellpadding="2" cellspacing="1" class="table_form">
+          
+            <tr>
+                <th width="80">Banner名称: </th>
+                <td><input type="text" name="name" id="name" size="25" value="{$banner_info.name}" ></td>
+            </tr>
+            <tr>
+                <th>URL:</th>
+                <td><input type="text" name="url" id="url" size="25" value="{$banner_info.url}"  ></td>
+            </tr>
+           
+		    <tr>
+                <th>图片:</th>
+                <td>
+                    <div>
+                      <input type="file" id="img" class="input-text" size="21" />
+                      <input type="hidden" name="img" value="{$banner_info.img}" />
+                      <img src="{$banner_info.img}" style="max-height:64px;"/>
+                    </div>
+               	</td>
+            </tr>
+		   
+            <tr>
+                <th>排序:</th>
+                <td><input type="text" name="ordid" id="ordid" class="input-text" value="{$banner_info.ordid}" size=8 onkeyup="value=value.replace(/[^\d]/g,'')"onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))"></td>
+            </tr>
+            <tr>
+                <th>状态:</th>
+                <td><input type="radio" name="status" value="1" 
+                    <if condition="$banner_info.status eq 1"> checked</if>
+                    >&nbsp;开启&nbsp;&nbsp;&nbsp; <input type="radio" name="status" value="0" 
+                    <if condition="$banner_info.status eq 0"> checked</if>
+                    >&nbsp;关闭</td>
+            </tr>
+        </table>
+        <input type="submit" name="dosubmit" id="dosubmit" class="dialog" value="">
+    </form>
+    <script type="text/javascript">
+	$(function(){
+        uploadify('#img','banner');
+        
+		$.formValidator.initConfig({formid:"myform",autotip:true,onerror:function(msg,obj){window.top.art.dialog({content:msg,lock:true,width:'250',height:'50'}, function(){this.close();$(obj).focus();})}});
+		
+		$("#name").formValidator({onshow:"不能为空",onfocus:"不能为空"}).inputValidator({min:1,onerror:"请填写名称"});
+		
+		$("#url").formValidator({onshow:"不能为空",onfocus:"http开头"}).inputValidator({min:1,onerror:"请填写链接地址"});
+	})
+</script>
+</div>
+</body></html>

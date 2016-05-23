@@ -1,0 +1,64 @@
+<include file="Public:header" />
+<div class="pad_10">
+<form action="{:u('tags/edit')}" method="post" name="myform" id="myform">
+<table width="100%" cellpadding="2" cellspacing="1" class="table_form">
+	<tr> 
+		<th width="100">名称：</th>
+		<td><input type="text" name="name" id="name" class="input-text" value="{$tags_info.name}" ></td>
+    </tr>
+  	<tr>
+        <th>图片：</th>
+        <td>
+            <div>
+              <input type="file" id="image" class="input-text" size="21" />
+              <input type="hidden" name="image" value="{$tags_info.image}" />
+              <img src="{$tags_info.image}" style="max-height:64px;"/>
+            </div>
+       	</td>
+    </tr>
+     <tr> 
+		<th width="100">描述：</th>
+		<td><textarea name="description" id="description" rows="4" cols="40">{$tags_info.description}</textarea></td>
+    </tr>
+    <tr> 
+		<th width="100">文字样式：</th>
+		<td>
+			<input type="radio" name="active" value="1" <if condition="$tags_info.active eq 1"> 	checked</if> >&nbsp;高亮&nbsp;&nbsp;&nbsp;
+      	 	<input type="radio" name="active" value="0" <if condition="$tags_info.active eq 0"> 	checked</if> >&nbsp;否
+		</td>
+    </tr>
+    <tr> 
+		<th width="100">排序：</th>
+		<td><input type="text" name="sort" id="sort" class="input-text" value="{$tags_info.sort}" ></td>
+    </tr>
+     </tr>
+     <th width="100">SEO-Title：</th>
+    <td><input type="text" name="seo_title" id="seo_title" class="input-text" value="{$tags_info.seo_title}" ></td>
+    </tr>
+     <th width="100">SEO-Keywords：</th>
+    <td><input type="text" name="seo_keywords" id="seo_keywords" class="input-text" value="{$tags_info.seo_keywords}" ></td>
+    </tr>
+     <th width="100">SEO-Description：</th>
+    <td><textarea name="seo_description" id="seo_description" rows="4" cols="40">{$tags_info.seo_description}</textarea></td>
+    </tr>
+</table>
+<input type="hidden" name="id" value="{$tags_info.id}" />
+<input type="submit" name="dosubmit" id="dosubmit" class="dialog" value=" ">
+</form>
+<script type="text/javascript">
+ uploadify('#image','tags');
+$(function(){
+
+		
+	/*$("#name").formValidator({onshow:"",onfocus:"名称不能为空"})
+		.inputValidator({min:1,onerror:"名称不能为空"});
+	$("#descrition").formValidator({onshow:"",onfocus:"描述不能为空"})
+		.inputValidator({min:1,onerror:"描述不能为空"});
+	$("#sort").formValidator({onshow:"",onfocus:"排序不能为空"})
+		.inputValidator({min:1,onerror:"排序不能为空"});*/
+	
+
+})
+</script>
+</div>
+</body>

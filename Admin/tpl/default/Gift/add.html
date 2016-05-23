@@ -1,0 +1,52 @@
+<tagLib name="wego" />
+<include file="Public:header" />
+<div class="pad_10">
+<form action="{:u('gift/add')}" method="post" name="myform" id="myform">
+<table width="100%" cellpadding="2" cellspacing="1" class="table_form">
+    <tr> 
+    <th width="100">分类：</th>
+    <td>
+      <select name="cate_id">
+        <volist name="cate" id="val">
+          <option value="{$val.id}">{$val.name}</option>
+        </volist>
+      </select>
+    </td>
+    </tr>
+  <tr> 
+    <th width="100">名称：</th>
+    <td><input type="text" name="title" id="title" class="input-text" value="" ></td>
+    </tr>
+    <tr>
+        <th>图片：</th>
+        <td>
+            <div>
+              <input type="file" id="image" class="input-text" size="21" />
+              <input type="hidden" name="image" value="" />
+              <img src="" style="max-height:64px;display:none"/>
+            </div>
+        </td>
+    </tr>
+    <tr>
+     <th width="100">囧币：</th>
+      <td><input type="text" name="price" id="price" class="input-text" value="" ></td>
+      </tr>
+     <tr> 
+      <th width="100">描述：</th>
+      <td><wego:editor id="description" name="description" type="KINDEDITOR" style="width:95%;height:400px;" ></wego:editor></td>
+    </tr>
+    <tr> 
+    <th width="100">状态：</th>
+    <td>
+          <input type="radio" name="status" value="1" checked>&nbsp;上架&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="status" value="0">&nbsp;下架
+    </td>
+    </tr>
+</table>
+<input type="submit" name="dosubmit" id="dosubmit" class="dialog" value=" ">
+</form>
+<script type="text/javascript">
+ uploadify('#image','gift');
+ </script>
+</div>
+</body>

@@ -1,0 +1,37 @@
+<include file="./Index/Tpl/Public/default/Index_header.html" />
+<!-- 主体内容-开始 -->
+<div class="main clearfix">
+	<div class="main-left fl" id="j-main-list">
+		<div class="mahua sarch-results">
+			为您找到与“<span>{$key}</span>”相关的原创 {$count}条
+		</div>
+
+		<div class="main-nav clearfix" id="j-main-nav">
+			<ul class="clearfix fl">
+				<li>全 部</li>
+				<!-- <li><a class="action" href="">最新</a></li>
+				<li><a href="">8小时热门</a></li>
+				<li><a href="">7天热门</a></li>
+				<li><a href="">30天热门</a></li> -->
+			</ul>
+			<!-- <p class="notice"><a href=""><b>公告：</b>囧币规则调整</a></p> -->
+		</div>
+
+	
+		<include file="./Index/Tpl/Public/default/Index_joke.html" />
+
+		<div class="page"> 
+			{$page}
+		</div>
+
+	</div>
+
+	<div class="main-right fr">
+		<include file="./Index/Tpl/Public/default/Index_user.html" />
+
+		<include file="./Index/Tpl/Public/default/Index_tags.html" />
+	</div>
+
+</div>
+<!-- 主体内容-结束 -->
+<include file="./Index/Tpl/Public/default/Index_footer.html" />

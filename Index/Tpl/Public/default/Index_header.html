@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="applicable-device" content="pc"/>
+<meta name="renderer" content="webkit" />
+<meta property="qc:admins" content="2453043260647677541556375" />
+<!--meta property="qc:admins" content="54440037776011217676375" /><!--QQ第三方登录-->
+<meta property="wb:webmaster" content="4fabd59cb09eec0a" />
+<!--meta property="wb:webmaster" content="2f873b1150e120cd" /><!--微博第三方登录-->
+<!--title>{$title} - {$setting.site_name}</title-->
+<title>{$setting.site_name}</title>
+<script type="text/javascript">
+//if((navigator.userAgent.match(/(iPhone|iPod|Android|ios|iPad)/i))){
+//	location.replace("http://m.dongwutime.com/");
+//};
+</script>
+<link rel="icon" href="__PUBLIC__/Assets/index/images/favicon.ico" type="image/x-icon" >
+<meta name="keywords" content="<if condition="$keywords neq NULL">{$keywords}<else/>{$title}</if>" />
+<meta name="description" content="<if condition="$description neq NULL">{$description}<else/>{$title}</if>" />
+<link rel="alternate" type="application/rss+xml" title="东吴在线网" href="http://www.dongwutime.com/rss"/>
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Assets/index/css/main.css">
+<script type="text/javascript" src="__PUBLIC__/Assets/js/sea.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Assets/js/sea_config.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Assets/js/jquery-1.11.1.min.js"></script>
+<!--<script type="text/javascript" src="__PUBLIC__/Assets/js/jquery.lazyload.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("img[original]").lazyload({
+            placeholder: "/Assets/index/images/loading.gif",
+            effect: "show"
+        });
+	});
+
+</script>-->
+</head>
+<body>
+
+
+<!-- 顶部-开始 -->
+<div class="header">
+	<div class="header-nav clearfix">
+		<div class="logo"><a href="/"><img src="__PUBLIC__/Assets/index/images/logo.jpg" width="60"></a></div><!--改了图片属性，作者常委-->
+		<ul class="clearfix menu">
+			<li><a href="/">最新提问</a></li>
+			<li><a href="/hotjoke">热门提问</a></li>
+			<li><a href="/tags">话题广场</a></li>
+			<li><a href="/godreply">神回复</a></li>
+			<li><a href="/shop">积分商城</a></li>
+		</ul>
+		<div class="header-user clearfix">
+			<if condition="$user eq NULL">
+			<a href="/account/login">登录</a>　
+			<a href="/account/register">注册</a>
+			<script type="text/javascript">var test = 0;</script>
+			<else/>
+			<!--登录状态-->
+			<div class="username clearfix">
+				<span><a href="/user">{$user.username}</a>，欢迎回来！</span>
+				<ul class="clearfix username-nav">
+					<li><a href="/user/joke">我的投稿</a></li>
+					<li><a href="/user/review">@评论</a></li>
+					<li><a href="/user/gift">我的礼品</a></li>
+					<li><a href="/user/info">个人资料</a></li>
+					<li><a href="/account/logout">退出</a></li>
+				</ul>
+				<script type="text/javascript">var test = 1;</script>
+			</div>
+			</if>
+		</div>
+	</div>
+</div>
+<!-- 顶部-结束 -->
+

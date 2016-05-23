@@ -1,0 +1,196 @@
+<tagLib name="wego" />
+<include file="Public:header" />
+<form id="myform" name="myform" action="{:u('setting/edit')}" enctype="multipart/form-data" method="post">
+  <div class="pad-10">
+    <div class="col-tab">
+      <ul class="tabBut cu-li">
+        <li id="tab_setting_1" class="on" onclick="SwapTab('setting','on','',3,1);">网站配置信息</li>       
+		<!-- <li id="tab_setting_3" onclick="SwapTab('setting','on','',3,3);">邮件设置</li> -->
+		<!-- <li id="tab_setting_2" onclick="SwapTab('setting','on','',3,2);">网站状态</li> -->
+      </ul>      
+      <div id="div_setting_1" class="contentList pad-10">
+          <table width="100%" cellpadding="2" cellspacing="1" class="table_form">
+            <tr>
+              <th width="120">{:L('site_name')} :</th>
+              <td><input type="text" name="site[site_name]" size="80" value="{$set.site_name}" class="input-text"></td>
+            </tr>
+            <tr>
+              <th width="120">{:L('site_domain')} :</th>
+              <td><input type="text" name="site[site_domain]" size="80" value="{$set.site_domain}" class="input-text"></td>
+            </tr> 
+              
+			<tr>
+              <th>{:L('site_title')}:</th>
+              <td><input type="text" name="site[site_title]" size="80" value="{$set.site_title}" class="input-text"></td>
+            </tr>
+            <tr>
+              <th>{:L('site_keyword')} :</th>
+              <td><input type="text" name="site[site_keyword]" size="80" value="{$set.site_keyword}" class="input-text"></td>
+            </tr>
+            <tr>
+              <th>{:L('site_description')} :</th>
+              <td><textarea rows="3" cols="80" name="site[site_description]">{$set.site_description}</textarea></td>
+            </tr> 
+			 <!--<tr>
+              <th>{:L('site_logo')} :</th>
+              <td>              	
+      				  <div>
+                  <input type="file" id="upload_logo" class="input-text" size="21" />
+                  <input type="hidden" name="site[site_logo]" value="{$set['site_logo']}" />
+        					<img src="{$set['site_logo']}" style="max-height:64px;<if condition="$set['site_logo'] neq ''">display:block<else/>display:none</if>"/>
+                </div>
+      			  </td>
+            </tr> 
+		       <tr>
+            <th>网站首页的Banner :</th>
+            <td>
+              <div>
+                  <input type="file" id="upload_banner" class="input-text" size="21" />
+                  <input type="hidden" name="site[index_banner]" value="" />
+                  <img src="{$set['index_banner']}" style="max-height:150px;max-width:500px;<if condition="$set['index_banner'] neq ''">display:block<else/>display:none</if>"/>
+                </div>
+            </td>
+          </tr>
+            <tr>
+             <th width="120">文章列表显示条数 :</th>
+             <td>
+               <input type="text" name="site[article_count]" value="{$set.article_count}"/>
+             </td>
+           </tr>
+            <tr>
+             <th width="120">首页新闻显示条数 :</th>
+             <td>
+               <input type="text" name="site[index_article_count]" value="{$set.index_article_count}"/>
+               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+               显示字数长度：
+               <input type="text" name="site[index_article_char_count]" value="{$set.index_article_char_count}" />
+             </td>
+           </tr>
+            <tr>
+             <th width="120">首页产品显示个数 :</th>
+             <td>
+               <input type="text" name="site[index_product_count]" value="{$set.index_product_count}"/>
+             </td>
+           </tr> 
+                      <tr>
+             <th width="120">产品列表显示个数 :</th>
+             <td>
+               <input type="text" name="site[product_count]" value="{$set.product_count}"/>
+             </td>
+           </tr> 
+           <tr>
+             <th width="120">产品图片缩略图宽度 :</th>
+             <td>
+               <input type="text" name="site[thumb_width]" value="{$set.thumb_width}"/>
+               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+               产品图片缩略图高度：
+               <input type="text" name="site[thumb_height]" value="{$set.thumb_height}" />
+             </td>
+           </tr>
+           <tr>
+             <th width="120">产品缩略图的背景色 :</th>
+             <td>
+               <input type="text" name="site[product_bg_color]" value="{$set.product_bg_color}"/>
+             </td>
+           </tr>  -->
+            <tr>
+              <th>{:L('site_icp')} :</th>
+              <td><input type="text" name="site[site_icp]" id="site_icp" class="input-text" value="{$set.site_icp}"></td>
+            </tr>
+            <tr>
+              <th>邮箱SMTP服务器 :</th>
+              <td><input type="text" name="site[mail_smtp]" id="mail_smtp" class="input-text" value="{$set.mail_smtp}"></td>
+            </tr>
+            <tr>
+              <th>邮箱地址 :</th>
+              <td><input type="text" name="site[mail_address]" id="mail_address" class="input-text" value="{$set.mail_address}"></td>
+            </tr>
+            <tr>
+              <th>邮箱登录帐号 :</th>
+              <td><input type="text" name="site[mail_loginname]" id="mail_loginname" class="input-text" value="{$set.mail_loginname}"></td>
+            </tr>
+            <tr>
+              <th>邮箱密码 :</th>
+              <td><input type="text" name="site[mail_password]" id="mail_password" class="input-text" value="{$set.mail_password}"></td>
+            </tr>
+            <tr>
+              <th width="120">图片水印文字 :</th>
+              <td><input type="text" name="site[site_short_domain]" size="80" value="{$set.site_short_domain}" class="input-text"></td>
+            </tr>  
+            <tr>
+              	<th>{:L('statistics_code')} :</th>
+              	<td>
+                    <textarea rows="3" cols="80" name="site[statistics_code]" id="statistics_code">{$set.statistics_code}</textarea>
+            	</td>
+        	</tr>
+			     <tr>
+              	<th>{:L('site_share')} :</th>
+              	<td>
+                    <textarea rows="3" cols="80" name="site[site_share]" id="site_share">{$set.site_share}</textarea>
+            	</td>
+        	</tr>
+           <tr>
+                <th>敏感词 :</th>
+                <td>
+                    <textarea rows="3" cols="80" name="site[sensitive]" id="sensitive">{$set.sensitive}</textarea> 以逗号 "，" 号分割
+              </td>
+          </tr>
+         <!--  <tr>
+              <th width="120">微店精英群号 :</th>
+              <td><input type="text" name="site[qq_qun]" size="80" value="{$set.qq_qun}" class="input-text"></td>
+            </tr> -->    
+          <tr>
+                <th>脚部内容 :</th>
+                <td>
+                    <wego:editor id="footer" name="site[site_footer]" type="KINDEDITOR" style="width:70%;height:350px;" >{$set.site_footer}</wego:editor>
+              </td>
+          </tr>			
+        </table>
+      </div>
+      
+      <!-- <div id="div_setting_2" class="contentList pad-10 hidden">
+        <table width="100%" cellpadding="2" cellspacing="1" class="table_form">       
+            <tr>
+              <th width="120">{:L('site_status')} :</th>
+              <td>
+                <input type="radio" <if condition="$set.site_status eq '1'">checked="checked"</if> onclick="" value="1" name="site[site_status]"> 开启 &nbsp;&nbsp;
+                <input type="radio" <if condition="$set.site_status eq '0'">checked="checked"</if> onclick="" value="0" name="site[site_status]"> 关闭 &nbsp;&nbsp;
+              </td>
+            </tr>
+            <tr>
+              <th>{:L('closed_reason')} :</th>
+              <td><textarea rows="4" cols="80" name="site[closed_reason]">{$set.closed_reason}</textarea></td>
+            </tr>
+         </table>      
+      </div> -->
+        
+      <div class="bk15"></div>
+
+      <div class="btn"><input type="submit" value="{$Think.lang.submit}" onclick="return submitFrom();" name="dosubmit" class="button" id="dosubmit"></div>
+
+    </div>
+
+  </div>
+
+</form>
+
+<script type="text/javascript">
+$(function() {
+  uploadify('#upload_logo','logo');
+  uploadify('#upload_banner','banner');
+});
+
+function SwapTab(name,cls_show,cls_hide,cnt,cur){
+    for(i=1;i<=cnt;i++){
+		if(i==cur){
+			 $('#div_'+name+'_'+i).show();
+			 $('#tab_'+name+'_'+i).attr('class',cls_show);
+		}else{
+			 $('#div_'+name+'_'+i).hide();
+			 $('#tab_'+name+'_'+i).attr('class',cls_hide);
+		}
+	}
+}
+</script>
+
+</body></html>

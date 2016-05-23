@@ -1,0 +1,40 @@
+<include file="Public:header" />
+<form id="myform" name="myform" action="{:u('setting/edit')}" method="post">
+<input type="hidden" name="data" value="com" />
+  <div class="pad-10">
+      	<table width="100%" cellpadding="2" cellspacing="1" class="table_form">
+            <tr>
+              <th width="100">交易佣金比例:</th>
+              <td style="line-height:30px">
+                &nbsp;&nbsp;&nbsp;微店主：<input type="text" name="site[trade_com_1]" value="{$set.trade_com_1}" class="input-text"/>%<br/>
+                &nbsp;&nbsp;&nbsp;推荐人：<input type="text" name="site[trade_com_2]" value="{$set.trade_com_2}" class="input-text"/>%<br/>
+                &nbsp;&nbsp;&nbsp;上上级：<input type="text" name="site[trade_com_3]" value="{$set.trade_com_3}" class="input-text"/>%<br/>
+                上上上级：<input type="text" name="site[trade_com_4]" value="{$set.trade_com_4}" class="input-text"/>%<br/>
+              </td>
+            </tr>
+            <tr>
+              <th>认证佣金比例:</th>
+              <td style="line-height:30px">
+                &nbsp;&nbsp;&nbsp;认证员：<input type="text" name="site[auth_com_1]" value="{$set.auth_com_1}" class="input-text"/><br/>
+                &nbsp;&nbsp;&nbsp;上上级：<input type="text" name="site[auth_com_2]" value="{$set.auth_com_2}" class="input-text"/><br/>
+                上上上级：<input type="text" name="site[auth_com_3]" value="{$set.auth_com_3}" class="input-text"/><br/>
+              </td>
+            </tr>
+            <tr>
+              <th>说明:</th>
+              <td>
+                分销商关系商讨确定4层为 70%  15%  10%  5%<br/>
+                最终消费者若自己是分销商，其购买商品的佣金70%归其所有，其上级推广人为15%，以此类推到4层终止。
+                
+              </td>
+            </tr>
+         </table>
+      <div class="bk15"></div>
+
+      <div class="btn"><input type="submit" value="{$Think.lang.submit}" onclick="return submitFrom();" name="dosubmit" class="button" id="dosubmit"></div>
+
+  </div>
+
+</form>
+
+</body></html>

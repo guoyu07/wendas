@@ -1,0 +1,44 @@
+<include file="Public:header" />
+<div class="pad-lr-10">
+    <form id="myform" name="myform" action="{:u('giftcate/delete')}" method="post" onsubmit="return check();">
+    <div class="table-list">
+    <table width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th width="60">ID</th>
+                <th width="60"><input type="checkbox" value="" id="check_box" onclick="selectall('id[]');"></th>
+                <th>名称</th>
+                <th>排序</th>
+                <th width="60">操作</th>
+            </tr>
+        </thead>
+    	<tbody>
+        <volist name="giftcate_list" id="val" >
+        <tr>
+            <td align="center">{$val.id}</td>
+            <td align="center"><input type="checkbox" value="{$val.id}" name="id[]"></td>            
+            <td align="center">{$val.name}</td>
+            <td align="center">{$val.sort}</td>
+            <td align="center"><a href="javascript:edit({$val.id},'{$val.name}')" class="blue">编辑</a></td>
+        </tr>
+        </volist>
+    	</tbody>
+    </table>
+
+    <div class="btn">
+            <label for="check_box" style="float:left;">{$Think.lang.select_all}/{$Think.lang.cancel}</label>
+            <input type="submit" class="button" name="dosubmit" value="{$Think.lang.delete}" onclick="return confirm('{$Think.lang.sure_delete}')" style="float:left;margin-left:10px;"/>
+            <div id="pages">{$page}</div>
+    </div>
+    </div>
+    </form>
+</div>
+<script language="javascript">
+function edit(id, name) {
+	var lang_edit = "{$Think.lang.edit}";
+	window.top.art.dialog({id:'edit'}).close();
+	window.top.art.dialog({title:lang_edit+'--'+name,id:'edit',iframe:'?m=giftcate&a=edit&id='+id,width:'500',height:'200'}, function(){var d = window.top.art.dialog({id:'edit'}).data.iframe;d.document.getElementById('dosubmit').click();return false;}, function(){window.top.art.dialog({id:'edit'}).close()});
+}
+
+</script>
+<include file="public:footer" />

@@ -1,0 +1,28 @@
+<include file="Public:header" />
+<form id="myform" name="myform" action="{:u('setting/edit')}" method="post">
+<input type="hidden" name="data" value="draw" />
+  <div class="pad-10">
+      	<table width="100%" cellpadding="2" cellspacing="1" class="table_form">
+            <tr>
+              <th width="150">最低提现限额:</th>
+              <td style="line-height:30px">
+                <input type="text" name="site[draw_min_limit]" value="{$set.draw_min_limit}" size="30" class="input-text"/>
+              </td>
+            </tr>
+           <tr>
+              <th width="150">提现整数倍:</th>
+              <td style="line-height:30px">
+                <input type="text" name="site[draw_multiple]" value="{$set.draw_multiple}"  size="30" class="input-text"/>
+              </td>
+            </tr>
+           
+         </table>
+      <div class="bk15"></div>
+
+      <div class="btn"><input type="submit" value="{$Think.lang.submit}" onclick="return submitFrom();" name="dosubmit" class="button" id="dosubmit"></div>
+
+  </div>
+
+</form>
+
+</body></html>

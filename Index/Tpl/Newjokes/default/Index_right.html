@@ -1,0 +1,158 @@
+<div class="main-right fr">
+
+		<include file="./Index/Tpl/Public/default/Index_user.html" />
+
+
+
+		<!--已签到-->
+
+		<!-- <div class="calendar calendar-out clearfix">
+
+			<a href="javascript:void(0);" class="calendar-left">
+
+				<i class="icon icon24 icon-diary"></i>签到
+
+			</a>
+
+			<div class="calendar-info">
+
+				<p class="calendar-info-itme flca5">已连续签到2天，本次获得25分</p>
+
+				<p class="flca5 weather">合肥 多云 19℃ 东风微风</p>
+
+			</div>
+
+		</div> -->
+
+
+
+		<!--未签到-->
+
+		<!-- <div class="calendar calendar-in">
+
+			<a href="javascript:void(0);" class="calendar-left">
+
+				<i class="icon icon24 icon-diary-s"></i>签到
+
+			</a>
+
+			<div class="calendar-info">
+
+				<p class="calendar-info-itme">
+
+					<span class="flcf66"><i class="icon icon10 icon-arr"></i>点击签到赚积分</span>
+
+				</p>
+
+				<p class="flca5 weather">合肥 多云 19℃ 东风微风</p>
+
+			</div>
+
+		</div> -->
+
+
+
+
+
+		<div class="trial" id="j-trial">
+
+			<dl class="trial-head">
+
+				<dt>最佳评审官</dt>
+
+				<dd>
+
+					<a href="javascript:void(0)" class="date-type weeks hover" data-body="weeks">周</a>
+
+					<!-- <a href="javascript:void(0)" class="date-type day hover" data-body="day">日</a> -->
+
+				</dd>
+
+			</dl>
+
+			<!-- <ul class="trial-body day-body clearfix" style="display:block;">
+				<if condition="$audit_day_user eq NULL">
+					<li style="text-align:center;">今天还没有人审稿。</li>
+				</if>
+
+				<volist name="audit_day_user" key="k" id="val" offset="0" length="5">
+
+				<li>
+
+					<span class="num top{$k}">{$k}</span>
+
+					<a href="/user/{$val.id}" class="user" target="_blank">
+
+						<img src="{$val.avatar}" alt="{$val.username}">
+
+					</a>
+
+					<div class="user-title">
+
+						<a href="/user/{$val.id}" target="_blank">{$val.username}</a>
+
+						<p>审准了{$val.day_audit_num}条</p>
+
+					</div>
+
+				</li>
+
+				</volist>
+
+			</ul> -->
+
+			<ul class="trial-body weeks-body clearfix" style="display:block;">
+				<if condition="$audit_week_user eq NULL">
+					<li style="text-align:center;">该周还没有人审稿。</li>
+				</if>
+				<volist name="audit_week_user" key="k" id="val" offset="0" length="5">
+
+				<li>
+
+					<span class="num top{$k}">{$k}</span>
+
+					<a href="/user/{$val.id}" class="user" target="_blank">
+
+						<img src="{$val.avatar}" alt="{$val.username}">
+
+					</a>
+
+					<div class="user-title">
+
+						<a href="/user/{$val.id}" target="_blank">{$val.username}</a>
+
+						<p>审准了{$val.day_audit_num}条</p>
+
+					</div>
+
+				</li>
+
+				</volist>
+
+			</ul>
+
+		</div>
+
+		<include file="./Index/Tpl/Public/default/Index_tags.html" />
+        <include file="./Index/Tpl/Public/default/Index_pic.html" />
+		<include file="./Index/Tpl/Public/default/Index_text.html" />
+		<include file="./Index/Tpl/Public/default/Index_adv.html" /><!--这是自己加的，作者常委-->
+		<!-- <div class="advertising" id="j-advertising">
+			<div class="advertising-box">
+				<a href="" target="_blank"><img src="/Assets/index/images/ab_right_4.jpg?v=20150602" width="300" height="250"></a>
+			</div>
+
+		</div> -->
+
+	</div>
+	<script type="text/javascript">
+		//tab
+		var trial = $('#j-trial');
+			type = trial.find('.date-type');
+		type.mouseover(function(){
+			var self = $(this),
+				type = self.data('body');
+			self.addClass('hover').siblings('a').removeClass('hover');
+			trial.find('.' + type + '-body').show().siblings('ul').hide();
+		});
+	</script>

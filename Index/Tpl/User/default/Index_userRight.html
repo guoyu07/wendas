@@ -1,0 +1,16 @@
+<div class="right">
+
+	<dl class="other-user clearfix" style="width:auto;padding:0 6px;">
+		<dt>看看他们的原创</dt>
+		<volist name="user_list" id="list">
+			<dd>
+				<a href="/user/{$list.id}" class="go-user-index" target="_blank">
+					<img src="{$list.avatar}" alt="{$list.username}">
+					<p>{$list.username}</p>
+				</a>
+				<a href="/user/{$list.id}" class="go-user-index-btn" target="_blank">去Ta首页</a>
+			</dd>
+		</volist>
+	</dl>
+
+</div>

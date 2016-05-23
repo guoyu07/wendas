@@ -1,0 +1,45 @@
+<include file="./Index/Tpl/Public/default/Index_header.html" />
+<!-- 主体内容-开始 -->
+<div class="main clearfix">
+	<div class="main-left fl store-main">
+
+		<div class="gift-top">
+			<span>囧币交易所</span>
+			<p>播种快乐赚取囧币，兑换礼品是最好的收获！</p>
+		</div>
+
+		<div class="gift-search">
+			<div class="quick-search">
+				<span>礼品类型：</span>
+				<volist name="cate" id="c_data">
+				<a href="/shop/index_1.html?cate_id={$c_data.id}" title="{$c_data.name}">{$c_data.name}</a>
+				</volist>
+			</div>
+		</div>
+
+		<ul class="gift-list">
+		    <volist name="gift" id="p_data">
+			<li>
+				<a href="/shop/detail_{$p_data.id}" title="{$p_data.title}" target="_blank"><img src="{$p_data.image}" alt="{$p_data.title}"></a>
+				<p class="title">{$p_data.title}</p>
+				<p><span>{$p_data.price}</span>囧币</p>
+				<a href="/shop/exchange_{$p_data.id}" class="btn loginClickHref">兑换</a>
+			</li>
+			</volist>
+		</ul>
+
+		<!-- 列表-结束 -->
+		<div class="comment">
+			<div class="page clearfix"> 
+				{$page}
+			</div>
+		</div>
+
+	</div>
+
+	<div class="main-right fr">
+		<include file="./Index/Tpl/Shop/default/Index_right.html" />
+	</div>
+</div>
+<!-- 主体内容-结束 -->
+<include file="./Index/Tpl/Public/default/Index_footer.html" />

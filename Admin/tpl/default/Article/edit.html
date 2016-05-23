@@ -1,0 +1,106 @@
+<tagLib name="wego" />
+<include file="Public:header" />
+
+<form action="{:u('article/edit')}" method="post" name="myform" id="myform" enctype="multipart/form-data" style="margin-top:10px;">
+  <div class="pad-10">
+  <div class="col-tab">
+  <ul class="tabBut cu-li">
+    <li id="tab_setting_1" class="on">{$Think.lang.general_info}</li>
+  </ul>
+  <div id="div_setting_1" class="contentList pad-10">
+    <table width="100%" cellpadding="2" cellspacing="1" class="table_form">
+      <tr>
+        <th width="100">{:L('title')} :</th>
+        <td><input type="text" name="title" id="title" class="input-text" size="60" value="{$article.title}"></td>
+      </tr>
+      <tr>
+        <th>{:L('cate_id')} :</th>
+        <td><select name="cate_id" style="width:200px;">
+        	<option value="0">--请选择分类--</option>
+            <volist name="cate_list['parent']" id="val">
+              <option  <if condition="$article['cate_id'] eq $val['id']"> selected="selected" </if> value="{$val.id}">{$val.name}</option>
+              <notempty name="cate_list['sub'][$val['id']]">
+                <volist name="cate_list['sub'][$val['id']]" id="sval">
+                  <option <if condition="$article['cate_id'] eq $sval['id']"> selected="selected" </if> value="{$sval.id}">&nbsp;&nbsp;&nbsp;&nbsp;{$sval.name}</option>
+                  <notempty name="cate_list['sub'][$sval['id']]">
+                    <volist name="cate_list['sub'][$sval['id']]" id="ssval">
+                      <option <if condition="$article['cate_id'] eq $ssval['id']"> selected="selected" </if> value="{$ssval.id}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$ssval.cate_name}</option>
+                    </volist>
+                  </notempty>
+                </volist>
+              </notempty>
+            </volist>
+          </select></td>
+      </tr>
+      <tr>
+          <th>链接URL :</th>
+          <td><input type="text" name="url" size="40" value="{$article.url}" class="input-text"/></td>
+         </tr>
+      <tr>
+      	<th>{:L('img')} :</th>
+      	<td>
+            <div>
+              <input type="file" id="upload_img" class="input-text" size="21" />
+              <input type="hidden" name="img" value="{$article.img}" />
+              <img src="{$article.img}" style="max-widht:100px;max-hegiht:100px;<if condition="$article.img neq ''">display:block<else/>display:none</if>"/>
+            </div>
+        </td>
+      </tr>
+      <tr>
+        <th>{:L('abst')} :</th>
+        <td><textarea name="abst" id="abst" style="width:68%;height:50px;">{$article.abst}</textarea></td>
+      </tr>
+      <tr>
+            <th>发布时间 :</th>
+            <td><input name="add_time" id="add_time" class="input-text" size="30" value="{$article.add_time|date='Y-m-d H:i:s',###}"></td>
+          </tr>
+      <tr>
+        <th>{:L('info')} :</th>
+        <td>        	
+			<wego:editor id="info" name="info" type="KINDEDITOR" style="width:70%;height:350px;" >{$article.info}</wego:editor>
+		</td>
+      </tr>
+      <tr>
+        <th>{:L('ordid')} :</th>
+        <td><input type="text" name="ordid" id="ordid" class="input-text" size="8" value="{$article.ordid}" ></td>
+      </tr>
+   
+      <tr>
+        <th>{:L('status')} :</th>
+        <td><input type="radio" name="status" class="radio_style" value="1" <if condition="$article.status eq 1"> checked</if>>
+          &nbsp;已审核&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="status" class="radio_style" value="0" <if condition="$article.status eq 0">  checked</if>>
+          &nbsp;未审核
+          </td>
+      </tr>
+      <tr><td><input type="hidden" name="id" value="{$article.id}" id="article_id"/></td></tr>
+    </table>
+  </div>
+
+  <div class="bk15"></div>
+  <div class="btn">
+    <input type="submit" value="{$Think.lang.submit}" name="dosubmit" class="button" id="dosubmit">
+  </div>
+
+</div>
+</div>
+</form>
+<script type="text/javascript">
+$(function() {
+  uploadify('#upload_img','news');
+});
+
+function SwapTab(name,cls_show,cls_hide,cnt,cur){
+    for(i=1;i<=cnt;i++){
+		if(i==cur){
+			 $('#div_'+name+'_'+i).show();
+			 $('#tab_'+name+'_'+i).attr('class',cls_show);
+		}else{
+			 $('#div_'+name+'_'+i).hide();
+			 $('#tab_'+name+'_'+i).attr('class',cls_hide);
+		}
+	}
+}
+</script>
+</body>
+</html>

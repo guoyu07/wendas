@@ -1,0 +1,114 @@
+<include file="Public:header" />
+<link href="__ROOT__/Assets/js/jqueryui/development-bundle/themes/base/jquery.ui.all.css" type="text/css" rel="stylesheet">
+<link href="__ROOT__/Assets/js/jqueryui/development-bundle/themes/base/jquery.ui.datepicker.css" rel="stylesheet" type="text/css"/>
+<script src="__ROOT__/Assets/js/jqueryui/development-bundle/ui/jquery.ui.core.js"></script>
+<script src="__ROOT__/Assets/js/jqueryui/development-bundle/ui/jquery.ui.datepicker.js"></script>
+<br/>
+<div class="pad-lr-10">
+    <!-- 搜索 start-->
+
+    
+    <form name="searchform" action="" method="post" >
+    <table width="100%" cellspacing="0" class="search-form">
+        <tbody>
+            <tr>
+            <td>
+            <div class="explain-col">
+                &nbsp;联系方式 :
+                <input name="keyword" type="text" class="input-text" size="25" value="{$keyword}"/>
+                 时间：         
+                <!-- <wego:calendar name="time_start">{$time_start}</wego:calendar> -->
+                <input type="text" size="12" name="time_start" id="time_start" value="<if condition='$time_start neq ""'>{$time_start}</if>"/>
+                -      
+                <!-- <wego:calendar name="time_end" more="true">{$time_end}</wego:calendar> -->
+                <input type="text" size="12" name="time_end" id="time_end" value="<if condition='$time_end neq ""'>{$time_end}</if>"/>
+                <input type="hidden" name="m" value="Feedback" />
+                <input type="hidden" name="a" value="index" />
+                <input type="submit" name="search" class="button" value="搜索" />
+            </div>
+            </td>
+            </tr>
+        </tbody>
+    </table>
+    </form>
+
+    <!-- 搜索 end-->
+
+    <form id="myform" name="myform" action="{:u('feedback/delete')}" method="post" onsubmit="return check();">
+    <div class="table-list">
+    <table width="100%" cellspacing="0">
+        <thead>
+            <tr>
+            	<th width="50">ID</th>
+                <th width="20"><input type="checkbox" value="" id="check_box" onclick="selectall('id[]');"></th>                
+                <th>联系方式</th>
+                <th>反馈内容</th>
+      			<th>提交时间</th>
+                <th>处理状态</th>
+            </tr>
+        </thead>
+    	<tbody>
+        <volist name="feedback_list" id="val" >
+        <tr>
+        	<td align="center">{$val.id}</td>
+            <td align="center"><input type="checkbox" value="{$val.id}" name="id[]"></td>            
+            <td align="center">{$val.contact}</td>
+            <td align="center">{$val.content}</td>
+            <td align="center">{$val.created_time|date="Y-m-d H:i:s",###}</td>
+            <td align="center" onclick="status({$val.id},'status')" id="status_{$val.id}"><img src="__ROOT__/Assets/admin/images/status_{$val.status}.gif"</td>
+        </tr>
+        </volist>
+    	</tbody>
+    </table>
+
+    <div class="btn">
+    <label for="check_box" style="float:left;">全选/取消</label>
+    <input type="submit" class="button" name="dosubmit" value="删除" onclick="return confirm('确定删除')" style="float:left;margin-left:10px;"/>
+    <div id="pages">{$page}</div>
+    </div>
+
+    </div>
+    </form>
+</div>
+<script language="javascript">
+$(function(){
+    $("#time_start").datepicker({
+      changeMonth: true,
+      changeYear: true
+    });
+    $("#time_end").datepicker({
+      changeMonth: true,
+      changeYear: true
+    });
+});
+
+function check(){
+    var ids='';
+    $("input[name='id[]']:checked").each(function(i, n){
+        ids += $(n).val() + ',';
+    });
+
+    if(ids=='') {
+        window.top.art.dialog({content:'请选择你需要操作的数据',lock:true,width:'200',height:'50',time:1.5},function(){});
+        return false;
+    }
+    return true;
+}
+
+function status(id,type){
+    $.get("{:u('feedback/status')}", { id: id, type: type }, function(jsondata){
+        var return_data  = eval("("+jsondata+")");
+		if(return_data.info)
+		{
+			alert(return_data.info);
+			return;
+		}
+		else
+		{
+	        $("#"+type+"_"+id+" img").attr('src', '__ROOT__/Assets/admin/images/status_'+return_data+'.gif');
+		}
+    }); 
+}
+</script>
+</body>
+</html>

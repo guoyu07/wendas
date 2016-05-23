@@ -1,0 +1,36 @@
+<include file="./Index/Tpl/Public/default/Index_header.html" />
+<!-- 主体内容-开始 -->
+<div class="main clearfix">
+	<div class="main-left fl store-main">
+
+		<div class="gift-top">
+			<span>囧币交易所</span>
+			<p>播种快乐赚取囧币，兑换礼品是最好的收获！</p>
+		</div>
+
+		<div class="gift-info">
+			<img src="{$gift.image}" alt="{$gift.title}">
+			<dl>
+				<dt>{$gift.title}</dt>
+				<dd class="gift-score">需要：<span>{$gift.price}</span></dd>
+				<dd><a href="/shop/exchange_{$gift.id}" class="loginClickHref">立即兑换</a></dd>
+			</dl>
+		</div>
+
+		<div class="gift-content">
+			<dl class="gift-description">
+				<dt>礼品描述</dt>
+				<dd>
+					{$gift.description}
+				</dd>
+			</dl>
+		</div>
+
+	</div>
+
+	<div class="main-right fr">
+		<include file="./Index/Tpl/Shop/default/Index_right.html" />
+	</div>
+</div>
+<!-- 主体内容-结束 -->
+<include file="./Index/Tpl/Public/default/Index_footer.html" />

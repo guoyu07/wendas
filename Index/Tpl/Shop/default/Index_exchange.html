@@ -1,0 +1,176 @@
+<include file="./Index/Tpl/Public/default/Index_header.html" />
+<!-- 主体内容-开始 -->
+<div class="main clearfix">
+	<div class="main-left fl store-main">
+
+		<div class="gift-top">
+			<span>囧币交易所</span>
+			<p>播种快乐赚取囧币，兑换礼品是最好的收获！</p>
+		</div>
+
+		<form id="form_gift_info" class="form_gift_info" novalidate="novalidate">
+			<dl class="gift-num">
+				<dt>确认收货信息</dt>
+				<dd>
+					<img src="{$gift.image}" alt="{$gift.title}">
+					<p class="title">{$gift.title}</p>
+					<p class="gift-score"><span>{$gift.price|number_format=2} </span>囧币</p>
+				</dd>
+				<dd class="gift-num-edit">
+					<p class="user-score">可用囧币<span>{$user.money|number_format=2} </span></p>
+					<p class="gift-num-edit-input" data-gift-score="{$user.price|number_format=0}" data-user-score="{$user.money|number_format=0}">
+					<span>数量：</span>
+						<input type="button" value="-" class="subtract">
+						<input type="text" value="1" class="num valid" name="num" id="num">
+						<input type="hidden" value="{$gift.id}" name="gift_id">
+						<input type="button" value="+" class="add">
+					</p>
+				</dd>
+			</dl>
+			<dl class="gift-address">
+				<if condition="$user['money'] gt $gift['price']">
+					<dt>确认收货地址</dt>
+					<dd>
+						<div class="address-edit"><span>
+						<select id="g_province" name="province"></select>
+						</span><i></i></div>
+						<div class="address-edit address-edit-city"><span><select id="g_city" name="city"><option value="">所在城市</option></select></span><i></i></div>
+						<div class="address-edit address-edit-county"><span><select id="g_area" name="area"><option value="">所在地区</option></select></span><i></i></div>
+						<div id="show"></div>
+					</dd>
+					<dd><input type="text" name="address" class="g_input_text g_address" title="街道地址"><span class="g_value">街道地址</span></dd>
+					<dd><input type="text" name="username" class="g_input_text g_name" title="收货人姓名"><span class="g_value">收货人姓名</span></dd>
+					<dd><input type="text" name="phone" class="g_input_text g_phone_number" title="手机号码"><span class="g_value">手机号码</span></dd>
+					<dd id="message"></dd>
+					<dd><input type="button" value="兑换" class="g_submit"></dd>
+				<else />
+					<dd>您当前拥有的囧币为 <span class="error">{$user.money|number_format=0}</span> ,不足以支付此次消费。</dd>
+				</if>
+			</dl>
+		</form>
+
+	</div>
+
+	<div class="main-right fr">
+		<include file="./Index/Tpl/Shop/default/Index_right.html" />
+	</div>
+</div>
+<script type="text/javascript">
+	seajs.use(['app','user','city','shop'],function(app,user,city,shop) {
+		_init_area();
+
+		$('.subtract').click(function(){
+			if(!isNaN($('#num').val()) && $('#num').val()>1){
+				$('#num').val(Number($('#num').val())-1);
+			}else{
+				$('#num').val(1);
+			}
+		})
+		$('.add').click(function(){
+			var gift_score=$(this).parent().attr('data-gift-score');
+			var user_score=$(this).parent().attr('data-user-score');
+			if(!isNaN($('#num').val()) && user_score>(Number($('#num').val())+1)*gift_score){
+				$('#num').val(Number($('#num').val())+1);
+			}else{
+				app.alert('你拥有的囧币最多可兑换'+$('#num').val()+'件');
+			}
+		})
+		$('#num').blur(function(){
+			var gift_score=$(this).parent().attr('data-gift-score');
+			var user_score=$(this).parent().attr('data-user-score');
+			if(!isNaN($(this).val())){
+				var num=parseInt($(this).val());
+				if(num>0){
+					if(user_score<num*gift_score){
+						app.alert('你拥有的囧币最多可兑换'+parseInt(user_score/gift_score)+'件');
+						$(this).val(parseInt(user_score/gift_score));
+					}else{
+						$(this).val(num);
+					}
+				}else{
+					$(this).val(1);
+				}
+			}else{
+				app.alert('请输入有效数字');
+				$(this).val(1);
+			}
+		})
+		$('.g_submit').on('click',function(){
+			var province 	= $('#g_province').val(),
+				city 		= $('#g_city').val(),
+				area 		= $('#g_county').val(),
+				address		= $('.g_address').val(),
+				name 		= $('.g_name').val(),
+				phone_number= $('.g_phone_number').val()
+				isMobile	=/^(?:13\d|15\d|18\d)\d{5}(\d{3}|\*{3})$/;
+
+
+
+			if(province == '' || city == '' || area == ''){
+				$('#message').html('所在地区不能为空');
+				return false;
+			}
+
+			if(address == ''){
+				$('#message').html('街道地址不能为空');
+				return false;
+			}
+
+			if(name == ''){
+				$('#message').html('收货人姓名不能为空');
+				return false;
+			}
+
+			if(phone_number == ''){
+				$('#message').html('手机号不能为空');
+				return false;
+			}
+
+			if(!isMobile.test(phone_number)){
+				$('#message').html("请输入正确的手机号");
+				return false;
+			}
+
+			$('#form_gift_info').find(".g_submit").attr("disabled", true).val('提交中...').css('background','#bcbcbd');
+			$.ajax({
+				type : 'POST',
+				url : '/shop/order/',
+				dataType : 'json',
+				data : $('#form_gift_info').serialize(),
+				success : function(ret){
+					if(ret.err == 1) {
+						$('#form_gift_info').find(".g_submit").val('提交成功');
+						app.alert('兑换信息提交成功！',function(){
+							location.href = '/user/gift'
+						});
+					} else {
+						$('#message').html('<p>'+ret.msg+'</p>');
+						$('#form_gift_info').find(".g_submit").attr("disabled", false).val('兑换').css('background','#ff7e69');
+					}
+				}
+			})
+		})
+
+		$('.g_input_text').each(function(index, element) {
+			if($(this).val()!=''){
+				$(this).parent().find('.g_value').hide();
+			}
+		});
+		input_value_gift($('.form_gift_info'));
+		function input_value_gift(t){
+			t.find('input').focus(function(){
+				if($(this).val() == $(this).attr('title') || $(this).val() == ''){
+					$(this).parent().find('.g_value').hide();
+				}
+			});
+			t.find('input').blur(function(){
+				if($(this).val() == $(this).attr('title') || $(this).val() == ''){
+					$(this).val('');
+					$(this).parent().find('.g_value').show();
+				}
+			})
+		}
+	});	
+</script>
+<!-- 主体内容-结束 -->
+<include file="./Index/Tpl/Public/default/Index_footer.html" />

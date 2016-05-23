@@ -1,0 +1,96 @@
+<include file="./Index/Tpl/Public/default/Index_header.html" />
+<style type="text/css">
+	body{background: url(/Assets/index/images/audit_body_bg.png);}
+</style>
+<div id="audit">
+
+	<div class="main-audit ordinary-audit">
+		<div class="audit-user-info">
+			<div class="audit-user-img">
+				<a href="/user" target="_blank">
+					<img src="{$user.avatar}" alt="{$user.username}"><i></i>
+				</a>
+			</div>
+			<div class="audit-user-name">
+				<p class="title"><a href="/user" target="_blank">{$user.username}</a></p>
+				<p>总审稿数：{$count}条</p>      
+				<p>总准确数：0条</p>
+				<p>本周审稿数：{$week_count}条</p>
+						</div>
+			<div class="audit-tips"></div>
+		</div>
+		<div class="audit-top"></div>
+		<div class="audit-content">
+			<div class="audit-left">
+				<if condition="$joke eq NULL">
+				<dl class="xiajiong">
+					<dt>
+						<h3 class="joke-title"></h3>
+					</dt>
+					<dd class="content">
+						<div class="joke-content">
+							<div style="font-size:18px; text-align:center; margin-top:100px">
+								你的效率太高，东吴们的速度远远跟不上，暂时没有投稿可以评审了！
+								<br>	<br>
+								你可以<a href="/">随便看看</a>或<a href="/joke/publish">投稿</a>
+	   						</div>
+						</div>
+					</dd>
+				</dl>
+				<else/>
+				<dl class="xiajiong">
+					<dt>
+						<h3 class="joke-title">{$joke.title}</h3>
+					</dt>
+					<dd class="content">
+						<div class="joke-content">
+							<php>
+								if($joke['type'] == 4) {
+									echo '<embed src="'.$joke['content'].'" quality="high" width="480" height="400" align="middle" allowScriptAccess="always" allowFullScreen="true" mode="transparent" type="application/x-shockwave-flash"></embed>';
+								}else{
+									echo $joke['content'];
+								}
+							</php>
+						</div>
+					</dd>
+				</dl>
+				</if>
+			</div>
+			<div class="audit-right">
+				<ul>
+					<li class="audit-good audit_btn" data-id="{$joke.id}" data-type="1" style="opacity: 1;"><a href="javascript:void(0)" style="cursor: pointer;">原创</a></li>
+					<li class="audit-bad audit_btn" data-id="{$joke.id}" data-type="2" style="opacity: 1;"><a href="javascript:void(0)" style="cursor: pointer;">非原创</a></li>
+					<li class="audit-report audit_btn" data-id="{$joke.id}" data-type="3" style="opacity: 1;"><a href="javascript:void(0)" style="cursor: pointer;">举报</a></li>
+					<li id="message" style="opacity: 1;"></li>
+					<li class="audit-skip  audit_btn" data-id="{$joke.id}" data-type="4" style="opacity: 1;"><a href="javascript:void(0)" style="cursor: pointer;">纠结 跳过</a></li>
+					<li class="audit-promote" style="opacity: 1;">
+						<span>
+							<a href="/about/shengao.html" target="_blank" style="cursor: pointer;">评审奖励</a>
+						</span>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="audit-bottom"></div>
+	</div>
+
+</div>
+
+<script type="text/javascript">
+seajs.use(['app'],function(app) {
+	$('.audit_btn').click(function() {
+		var joke_id = $(this).data().id;
+		if(joke_id != '') {
+			var type = $(this).data().type;
+			
+			$.post('/joke/audit',{joke_id:joke_id,type:type},function(data) {
+				if(data.err == 1) {
+					location.reload();
+				}
+			},'json');
+		}
+	});
+});
+</script>
+
+<include file="./Index/Tpl/Public/default/Index_footer1.html" />

@@ -1,0 +1,12 @@
+<include file="./Index/Tpl/Public/default/Index_user.html" />
+
+<dl class="gift-other-user">
+	<dt>他们刚刚兑换的礼品</dt>
+	 <volist name="user_gift" id="ug_data">
+	<dd>
+		<a href="/user/{$ug_data.user_id}" class="avatar_60x60"><img src="{$ug_data.user_info.avatar}" alt="{$ug_data.user_info.username}"></a>
+		<p><a href="/user/{$ug_data.user_id}" class="gift-username">{$ug_data.user_info.username}</a></p>
+		<p>兑换了 <a href="/shop/detail_{$ug_data.gift_info.id}">{$ug_data.gift_info.title}</a></p> 
+	</dd>
+	</volist>
+</dl>

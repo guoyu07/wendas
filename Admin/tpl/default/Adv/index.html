@@ -1,0 +1,26 @@
+<include file="Public:header" />
+<div class="pad-lr-10"> 
+    <div class="table-list" style="width:100%">
+    <table width="100%" cellspacing="0"> 
+        <volist name="adv_list" id="val" >
+        <form action="{:u('adv/edit')}" method="post" name="myform{$val.id}" id="myform{$val.id}">
+        <tr>
+        <td align="center" style="border-right:1px solid #d5dfe8">
+               广告标识： <input name="name" value="{$val.name}" /> <br/><br/>
+               调用代码： <input value="{ $adv['{$val.name}'] }" /> <br/>
+               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;调用时去掉{}中的空格</td>
+            <td align="center"  style="border-right:1px solid #d5dfe8">
+                <textarea rows="4" cols="100" name="code">{$val.code}</textarea>
+            </td>
+            <td align="center">
+                <input type="hidden" name="id" value="{$val.id}" />
+                <input type="submit" name="dosubmit" id="dosubmit" value=" 保存修改"><br/><br/>
+                <a href="javascript:;" class="blue" onclick="if(confirm('确认删除吗?')) { window.location='{:u('adv/delete')}&id={$val.id}'}">删除广告</a>
+            </td>
+        </tr>
+        </form>
+        </volist>
+    </table>
+    </div>
+</div>
+<include file="public:footer" />

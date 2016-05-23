@@ -1,0 +1,35 @@
+<include file="Public:header" />
+<div class="pad_10">
+<form action="{:u('user/change')}" method="post" name="myform" id="myform">
+<table width="100%" cellpadding="2" cellspacing="1" class="table_form">
+	<tr> 
+		<th width="10%">头像:</th>
+		<td><img src="{$user_info.avatar}" width="80"/></td>
+    </tr>
+	<tr> 
+		<th>昵称:</th>
+		<td>{$user_info.username}</td>
+    </tr>
+  	<tr> 
+		<th>等级:</th>
+		<td><input type="text" name="level" value="{$user_info.level}"/></td>
+    </tr>
+    <tr> 
+		<th>囧币:</th>
+		<td>
+			<input type="radio" name="ptype" value="0" checked/> 不变&nbsp;&nbsp;
+			<input type="radio" name="ptype" value="add" /> 增加&nbsp;&nbsp;
+			<input type="radio" name="ptype" value="des" /> 减少&nbsp;&nbsp;
+			<input type="text" name="money" />
+		</td>
+    </tr>
+    <tr> 
+		<th>备注:</th>
+		<td><textarea name="content" rows="5" cols="40"></textarea></td>
+    </tr>
+</table>
+<input type="hidden" name="id" value="{$user_info.id}" />
+<input type="submit" name="dosubmit" id="dosubmit" class="dialog" value=" ">
+</form>
+</div>
+</body>

@@ -1,0 +1,100 @@
+<include file="Public:header" />
+<link href="__ROOT__/Assets/js/jqueryui/development-bundle/themes/base/jquery.ui.all.css" type="text/css" rel="stylesheet">
+<link href="__ROOT__/Assets/js/jqueryui/development-bundle/themes/base/jquery.ui.datepicker.css" rel="stylesheet" type="text/css"/>
+<script src="__ROOT__/Assets/js/jqueryui/development-bundle/ui/jquery.ui.core.js"></script>
+<script src="__ROOT__/Assets/js/jqueryui/development-bundle/ui/jquery.ui.datepicker.js"></script>
+<div class="pad-lr-10">
+    <form name="searchform" action="" method="get" >
+    <table width="100%" cellspacing="0" class="search-form">
+        <tbody>
+            <tr>
+            <td>
+            <div class="explain-col">
+               
+                发布时间：         
+                <!-- <wego:calendar name="time_start">{$time_start}</wego:calendar> -->
+                <input type="text" size="12" name="time_start" id="time_start" value="<if condition='$time_start neq ""'>{$time_start}</if>"/>
+                -      
+                <!-- <wego:calendar name="time_end" more="true">{$time_end}</wego:calendar> -->
+                <input type="text" size="12" name="time_end" id="time_end" value="<if condition='$time_end neq ""'>{$time_end}</if>"/>
+                <input type="hidden" name="m" value="xiaohua" />
+                <input type="hidden" name="a" value="unaudit" />
+                <input type="submit" name="search" class="button" value="搜索" />
+            </div>
+            </td>
+            </tr>
+        </tbody>
+    </table>
+    </form>
+    <form id="myform" name="myform" action="{:u('xiaohua/delete')}" method="post" onsubmit="return check();">
+    <div class="table-list">
+    <table width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th width="60">ID</th>
+                <th width="60"><input type="checkbox" value="" id="check_box" onclick="selectall('id[]');"></th>
+                <th width="200">发布人</th>
+                <th width="500">内容</th>
+                <th>状态</th>
+                <th>发布时间</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+    	<tbody>
+        <volist name="joke_list" id="val" >
+        <tr>
+            <td align="center">{$val.id}</td>
+            <td align="center"><input type="checkbox" value="{$val.id}" name="id[]"></td>            
+            <td align="center"><img src="{$val.user_info.avatar}" width="80"/><br/>{$val.user_info.username}</td>
+            <td align="left"><b>{$val.title}</b><br/><br/>{$val.content}</td>
+            <td align="center">
+                <if condition="$val.status eq 1"><font style="color:#0000ff">待审核</font></if>
+            </td>
+            <td align="center">{$val.created_time|date='Y-m-d H:i:s',###}</td>
+            <td align="center">
+                <a href="javascript:edit({$val.id},'{$val.username}')" class="blue">编辑</a>
+
+                <a href="javascript:audit({$val.id},'<php>echo htmlspecialchars($val['title'], ENT_QUOTES);</php>')" class="blue">审核</a>
+            </td>
+        </tr>
+        </volist>
+    	</tbody>
+    </table>
+
+    <div class="btn">
+            <label for="check_box" style="float:left;">{$Think.lang.select_all}/{$Think.lang.cancel}</label>
+            <input type="submit" class="button" name="dosubmit" value="{$Think.lang.delete}" onclick="return confirm('{$Think.lang.sure_delete}')" style="float:left;margin-left:10px;"/>
+            <div id="pages">{$page}</div>
+    </div>
+    </div>
+    </form>
+</div>
+<script language="javascript">
+$(function(){
+    $("#time_start").datepicker({
+      changeMonth: true,
+      changeYear: true
+    });
+    $("#time_end").datepicker({
+      changeMonth: true,
+      changeYear: true
+    });
+});
+
+function audit(id, title) {
+    var lang_show = "详情";
+    window.top.art.dialog({id:'audit_joke'}).close();
+    window.top.art.dialog({title:lang_show+'--'+title,id:'audit_joke',iframe:'?m=xiaohua&a=audit_joke&id='+id,width:'800',height:'600'}, function(){var d = window.top.art.dialog({id:'audit_joke'}).data.iframe;d.document.getElementById('dosubmit').click();return false;}, function(){window.top.art.dialog({id:'audit_joke'}).close()});
+}
+
+function edit(id, name) {
+
+    var lang_show = "详情";
+
+    window.top.art.dialog({id:'edit'}).close();
+
+    window.top.art.dialog({title:lang_show+'--'+name,id:'edit',iframe:'?m=xiaohua&a=edit&id='+id,width:'800',height:'600'}, function(){var d = window.top.art.dialog({id:'edit'}).data.iframe;d.document.getElementById('dosubmit').click();return false;}, function(){window.top.art.dialog({id:'edit'}).close()});
+
+}
+</script>
+<include file="public:footer" />

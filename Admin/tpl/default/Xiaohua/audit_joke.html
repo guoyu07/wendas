@@ -1,0 +1,66 @@
+<include file="Public:header" />
+<div class="pad_10">
+<form action="{:u('xiaohua/audit_joke')}" method="post" name="myform" id="myform">
+<table width="100%" cellpadding="2" cellspacing="1" class="table_form">
+	<tr> 
+		<th width="60">发布人:</th>
+		<td><img src="{$user_joke['user_info']['avatar']}" width="80"/> <br/>{$user_joke['user_info']['username']}</td>
+    </tr>
+    <tr> 
+		<th>内容:</th>
+		<td><b>{$user_joke.title}</b> <br/><br/>{$user_joke.content}</td>
+    </tr>
+     <tr> 
+		<th>发布时间:</th>
+		<td>
+			{$user_joke.created_time|date='Y-m-d H:i:s',###}
+		</td>
+    </tr>
+
+     <tr> 
+		<th>类别:</th>
+		<td>
+			<label for="type1"><input type="radio" id="type1" name="type" value="1" checked> 文字</label>
+      	 	<label for="type2"><input type="radio" id="type2" name="type" value="2"> 图片</label>
+      	 	<label for="type3"><input type="radio" id="type3" name="type" value="3"> 动态图</label>
+      	 	<label for="type4"><input type="radio" id="type4" name="type" value="4"> 视频</label>
+		</td>
+    </tr>
+     <tr> 
+		<th>笑点归类:</th>
+		<td>
+		<style>
+			label{display:inline-block;width:110px;padding:5px 0;margin:1px;background:#E6E6E6;}
+			label input{margin-left:2px;}
+		</style>
+		<volist name="tags" id="val">
+			<label for="tags{$val.id}"><input type="checkbox" name="tags_id[]" id="tags{$val.id}" value="{$val.id}"> {$val.name}</label>
+      	</volist>
+		</td>
+    </tr>
+     <tr> 
+		<th>操作:</th>
+		<td>
+			<label for="s1"><input type="radio" id="s1" name="status" value="2" checked> 通过</label>
+      	 	<label for="s2"><input type="radio" id="s2" name="status" value="3"> 不通过</label>
+      	 	<input type="text" name="reason" id="reason" size="50" style="display:none" placeholder="理由"/>
+		</td>
+    </tr>
+   
+</table>
+<input type="hidden" name="id" value="{$user_joke.id}" />
+<input type="submit" name="dosubmit" id="dosubmit" class="dialog" value=" ">
+</form>
+<script type="text/javascript">
+	$('input[name="status"]').click(function() {
+		var status = $(this).val();
+		if(status == 3) {
+			$('#reason').show();
+		}else if(status == 2) {
+			$('#reason').hide();
+		}
+	});
+
+</script>
+</div>
+</body>
