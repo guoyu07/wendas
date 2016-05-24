@@ -16,7 +16,7 @@ if (get_magic_quotes_gpc()) {
 	unset($_GET['pathinfo']);
 }*/
 //关闭缓存，开发模式
-define('APP_DEBUG',0);
+define('APP_DEBUG',1);
 define('HTML_CACHE_ON',true);
 define('DB_FIELD_CACHE',true);
 
