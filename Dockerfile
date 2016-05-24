@@ -5,6 +5,7 @@ FROM daocloud.io/ubuntu:trusty
 MAINTAINER Captain Dao <support@daocloud.io>
 
 # APT 自动安装 PHP 相关的依赖包，如需其他依赖包在此添加
+
 RUN apt-get update \
     && apt-get -y install \
         curl \
@@ -41,7 +42,13 @@ RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf \
 
 # 配置默认放置 App 的目录
 RUN chmod 777 /var/www/html
-#RUN mkdir -p /app && rm -rf /var/www/html && ln -s /app /var/www/html
+RUN a2enmod rewrite
+#RUN ln -s /etc/apache2/mods-available/rewrite.load /etc/apache2/mods-enabled/rewrite.load
+RUN sed -i 's/AllowOverride None/AllowOverride All/g'  `grep "AllowOverride None"  -rl /etc/apache2/apache2.conf`
+
+RUN /etc/init.d/apache2 restart
+
+RUN rm -rf /var/www/html/* 
 COPY . /var/www/html
 RUN chmod -R 777 /var/www/html
 WORKDIR /var/www/html
