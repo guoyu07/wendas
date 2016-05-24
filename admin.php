@@ -10,7 +10,7 @@ if (get_magic_quotes_gpc()) {
 	$_COOKIE = array_map('stripslashes_deep', $_COOKIE); 
 }
 
-define('APP_DEBUG',0);
+define('APP_DEBUG',1);
 define('APP_NAME', 'xiaohua');
 define('CONF_PATH','./Admin/conf/');
 define('RUNTIME_PATH','./Admin/runtime/');
