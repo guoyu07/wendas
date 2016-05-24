@@ -40,9 +40,11 @@ RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf \
         /etc/php5/apache2/php.ini
 
 # 配置默认放置 App 的目录
-RUN mkdir -p /app && rm -rf /var/www/html && ln -s /app /var/www/html
-COPY . /app
-WORKDIR /app
+RUN chmod 777 /var/www/html
+#RUN mkdir -p /app && rm -rf /var/www/html && ln -s /app /var/www/html
+COPY . /var/www/html
+RUN chmod -R 777 /var/www/html
+WORKDIR /var/www/html
 RUN chmod 755 ./start.sh
 
 EXPOSE 80
